@@ -7,8 +7,10 @@ package BL;
 
 /**
  *
- * @author creed
+<<<<<<< HEAD
+ * @author damar
  */
+
 public class Operacion extends Fraccion {
     
     private Fraccion fraccion2;
@@ -22,5 +24,4 @@ public class Operacion extends Fraccion {
         this.fraccion2 = new Fraccion(fraccion2);
         
     }
-    
 }
