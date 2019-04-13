@@ -16,10 +16,10 @@ public class main {
     
     public static void main(String[] args){
         
-        Operacion fraccion1 = new Operacion("1/5","3/2");
+        //Operacion fraccion1 = new Operacion("3/","3/2");
+        Fraccion fraccion1 = new Fraccion("/4");
         
-        
-        System.out.println(fraccion1.dividir());
+        System.out.println(fraccion1.toString());
         
     }
     

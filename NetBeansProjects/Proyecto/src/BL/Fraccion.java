@@ -15,15 +15,44 @@ public class Fraccion {
     private int denominador;
 
     public Fraccion() { 
-        this("1/1");
+        this("1/1"); //Agregar errores para si es vac[io
         
     }
     
     public Fraccion(String fraccion) {
+        int numerador = 0;
+        int denominador = 0;
         
-        int numerador = Integer.parseInt(fraccion.split("/")[0]);
-        int denominador = Integer.parseInt(fraccion.split("/")[1]);
-        
+        while(numerador == 0 || denominador == 0) {
+            try{
+                numerador = Integer.parseInt(fraccion.split("/")[0]);
+                denominador 
+            } 
+            catch (NumberFormatException nfe) { //Fraccion no tiene numerador
+                numerador = 1;
+                denominador = Integer.parseInt(fraccion.split("/")[1]);
+            } 
+            catch (ArrayIndexOutOfBoundsException aioe) {  
+                if (aioe.getMessage().equalsIgnoreCase("0")){ //Fraccion no tiene valores
+                    try {
+                        numerador = 1;
+                        denominador = Integer.parseInt(fraccion.split("/")[1]);
+                    }
+                    catch (ArrayIndexOutOfBoundsException aioe2) {
+                        numerador = 1;
+                        denominador = 1;
+                    }
+                } 
+                else { //Fraccion no lleva denominador
+                    numerador = Integer.parseInt(fraccion.split("/")[0]);
+                    denominador = 1;
+                }
+
+            } catch (Exception ex) {
+                numerador = 1;
+                denominador = 1;
+            }
+        }
         setNumerador(numerador);
         setDenominador(denominador);
         

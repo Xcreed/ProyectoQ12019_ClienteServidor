@@ -30,34 +30,59 @@ public class GUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
+        jtbtSuma = new javax.swing.JToggleButton();
+        jtbtResta = new javax.swing.JToggleButton();
+        jtbtMultiplicacion = new javax.swing.JToggleButton();
+        jtbtDivision = new javax.swing.JToggleButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jTextField4 = new javax.swing.JTextField();
+        jPanel13 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        jtxfNumerador1 = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jtxfDenominador1 = new javax.swing.JTextField();
+        jPanel14 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setLayout(new java.awt.BorderLayout(10, 0));
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jPanel10.setLayout(new java.awt.GridLayout(4, 1, 10, 0));
+
+        jtbtSuma.setText("+");
+        jtbtSuma.setMaximumSize(new java.awt.Dimension(50, 29));
+        jtbtSuma.setMinimumSize(new java.awt.Dimension(50, 29));
+        jtbtSuma.setPreferredSize(new java.awt.Dimension(50, 29));
+        jPanel10.add(jtbtSuma);
+
+        jtbtResta.setText("-");
+        jtbtResta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtbtRestaActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jtbtResta);
+
+        jtbtMultiplicacion.setText("x");
+        jPanel10.add(jtbtMultiplicacion);
+
+        jtbtDivision.setText("÷");
+        jPanel10.add(jtbtDivision);
 
         jPanel2.add(jPanel10, java.awt.BorderLayout.CENTER);
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(40, 100));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -67,10 +92,12 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel11, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(jPanel11, java.awt.BorderLayout.WEST);
+
+        jPanel12.setPreferredSize(new java.awt.Dimension(40, 100));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -83,7 +110,7 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel12, java.awt.BorderLayout.PAGE_END);
+        jPanel2.add(jPanel12, java.awt.BorderLayout.EAST);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -113,33 +140,66 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel5.setLayout(new java.awt.BorderLayout(10, 0));
+
+        jPanel9.setLayout(new java.awt.GridLayout(3, 1));
+
+        jTextField3.setText("jTextField3");
+        jPanel9.add(jTextField3);
+        jPanel9.add(jSeparator2);
+
+        jTextField4.setText("jTextField4");
+        jPanel9.add(jTextField4);
+
+        jPanel5.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel13.setPreferredSize(new java.awt.Dimension(25, 100));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+
+        jPanel5.add(jPanel13, java.awt.BorderLayout.EAST);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.LINE_END);
 
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel6.setLayout(new java.awt.BorderLayout(10, 0));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel7.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel7.add(jtxfNumerador1);
+
+        jSeparator1.setAlignmentX(1.0F);
+        jSeparator1.setAlignmentY(5.0F);
+        jPanel7.add(jSeparator1);
+
+        jtxfDenominador1.setText("TextoFeid2");
+        jPanel7.add(jtxfDenominador1);
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel14.setPreferredSize(new java.awt.Dimension(25, 100));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel6.add(jPanel7, java.awt.BorderLayout.CENTER);
+        jPanel6.add(jPanel14, java.awt.BorderLayout.EAST);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(25, 100));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -154,25 +214,16 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel6.add(jPanel8, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel6.add(jPanel9, java.awt.BorderLayout.EAST);
-
         jPanel1.add(jPanel6, java.awt.BorderLayout.LINE_START);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtbtRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtRestaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtbtRestaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +265,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -222,5 +275,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JToggleButton jtbtDivision;
+    private javax.swing.JToggleButton jtbtMultiplicacion;
+    private javax.swing.JToggleButton jtbtResta;
+    private javax.swing.JToggleButton jtbtSuma;
+    private javax.swing.JTextField jtxfDenominador1;
+    private javax.swing.JTextField jtxfNumerador1;
     // End of variables declaration//GEN-END:variables
 }
