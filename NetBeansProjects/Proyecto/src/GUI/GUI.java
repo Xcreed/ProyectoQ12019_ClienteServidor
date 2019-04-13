@@ -228,8 +228,14 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel9.setPreferredSize(new java.awt.Dimension(120, 78));
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
+
+        jtxfNumerador2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jtxfNumerador2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel9.add(jtxfNumerador2);
         jPanel9.add(jSeparator3);
+
+        jtxfDenominador2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jtxfDenominador2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel9.add(jtxfDenominador2);
 
         jPanel5.add(jPanel9, java.awt.BorderLayout.CENTER);
@@ -270,9 +276,13 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel7.setPreferredSize(new java.awt.Dimension(120, 78));
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.Y_AXIS));
+
+        jtxfNumerador1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jtxfNumerador1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel7.add(jtxfNumerador1);
         jPanel7.add(jSeparator4);
 
+        jtxfDenominador1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jtxfDenominador1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtxfDenominador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,7 +344,7 @@ public class GUI extends javax.swing.JFrame {
         
         if (jtxfNumerador1.getText().equals("0") || jtxfNumerador2.getText().equals("0") 
                 || jtxfDenominador1.getText().equals("0") || jtxfDenominador1.getText().equals("0")) {
-                JOptionPane.showMessageDialog(null, "Alguna de las fracciones no contienen valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null, "Alguna de las fracciones contiene valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         }
         else if(jtxfNumerador1.getText().equals("") || jtxfNumerador2.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consiste del formato correcto. Verifique y vuelva a intentar.","Informaci\u00f3n", JOptionPane.ERROR_MESSAGE);
@@ -365,8 +375,6 @@ public class GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
             //realizarCalculo(operacion); //infinite loop
             break;
-            
-
         }
             
         JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa.", JOptionPane.INFORMATION_MESSAGE);
