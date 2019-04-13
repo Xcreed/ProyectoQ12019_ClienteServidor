@@ -332,8 +332,12 @@ public class GUI extends javax.swing.JFrame {
         String fraccion1 = jtxfNumerador1.getText() +"/"+ jtxfDenominador1.getText();
         String fraccion2 = jtxfNumerador2.getText() +"/"+ jtxfDenominador2.getText();
         
-        if(jtxfNumerador1.getText().equals("") || jtxfNumerador2.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consiste del formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n.", JOptionPane.ERROR_MESSAGE);
+        if (jtxfNumerador1.getText().equals("0") || jtxfNumerador2.getText().equals("0") 
+                || jtxfDenominador1.getText().equals("0") || jtxfDenominador1.getText().equals("0")) {
+                JOptionPane.showMessageDialog(null, "Alguna de las fracciones no contienen valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+        }
+        else if(jtxfNumerador1.getText().equals("") || jtxfNumerador2.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consiste del formato correcto. Verifique y vuelva a intentar.","Informaci\u00f3n", JOptionPane.ERROR_MESSAGE);
         } 
         else if(jtxfDenominador1.getText().equals("") || jtxfDenominador1.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Alguna de las fracciones no tiene Denominador. Se ha agregado el valor por omisi\u00f3n que es 1.","Error al crear operaci\u00f3n.", JOptionPane.INFORMATION_MESSAGE);
@@ -347,16 +351,28 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
     private void realizarCalculo(Operacion operacion){
+        while(true){
+        String resultado = null;
         if(jtbtSuma.isSelected()){
-            System.out.println("Suma" + operacion.sumar());
+            resultado = operacion.sumar();
         } else if (jtbtResta.isSelected()){
-            System.out.println("Resta" + operacion.restar());
+            resultado = operacion.restar();
         } else if (jtbtMultiplicacion.isSelected()){
-            System.out.println("Multiplicacion" + operacion.multiplicar());
+            resultado = operacion.multiplicar();
         } else if (jtbtDivision.isSelected()){
-            System.out.println("Division" + operacion.dividir());
+            resultado = operacion.dividir();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
+            //realizarCalculo(operacion); //infinite loop
+            break;
+            
+
         }
             
+        JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa.", JOptionPane.INFORMATION_MESSAGE);
+        break;
+        }
+        jbtgOperaciones.clearSelection();
     }
     
     /**
