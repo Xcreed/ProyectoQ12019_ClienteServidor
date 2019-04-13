@@ -20,32 +20,27 @@ public class Fraccion {
     }
     
     public Fraccion(String fraccion) {
-        int numerador = 0;
+        int numerador = 0; //Borrar esto, no se le va a permitir al usuario ingresar datos invalidos. (Mover error handling al gui)
         int denominador = 0;
         
         while(numerador == 0 || denominador == 0) {
             try{
                 numerador = Integer.parseInt(fraccion.split("/")[0]);
-                denominador 
+                denominador = Integer.parseInt(fraccion.split("/")[1]);
             } 
             catch (NumberFormatException nfe) { //Fraccion no tiene numerador
                 numerador = 1;
                 denominador = Integer.parseInt(fraccion.split("/")[1]);
             } 
             catch (ArrayIndexOutOfBoundsException aioe) {  
-                if (aioe.getMessage().equalsIgnoreCase("0")){ //Fraccion no tiene valores
-                    try {
-                        numerador = 1;
-                        denominador = Integer.parseInt(fraccion.split("/")[1]);
-                    }
-                    catch (ArrayIndexOutOfBoundsException aioe2) {
-                        numerador = 1;
-                        denominador = 1;
-                    }
-                } 
-                else { //Fraccion no lleva denominador
+                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no denominador
                     numerador = Integer.parseInt(fraccion.split("/")[0]);
                     denominador = 1;
+                } 
+                else { //Fraccion no tiene valores
+                    numerador = 1;
+                    denominador = 1;
+                    
                 }
 
             } catch (Exception ex) {
