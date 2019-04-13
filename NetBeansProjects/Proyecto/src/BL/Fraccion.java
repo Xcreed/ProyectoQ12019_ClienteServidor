@@ -29,6 +29,9 @@ public class Fraccion {
     }
 
     public void setNumerador(int numerador) {
+        if (numerador == 0) {
+            
+        }
         this.numerador = numerador;
     }
 

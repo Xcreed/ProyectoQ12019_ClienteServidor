@@ -7,12 +7,21 @@ package BL;
 
 /**
  *
+<<<<<<< HEAD
  * @author damar
  */
+
 public class Operacion extends Fraccion {
     
-    Fraccion fraccion2 = new Fraccion();
+    private Fraccion fraccion2;
     
+    public Operacion(){
+        
+    }
     
-    
+    public Operacion(String fraccion1, String fraccion2) {
+        super(fraccion1);
+        this.fraccion2 = new Fraccion(fraccion2);
+        
+    }
 }
