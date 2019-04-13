@@ -74,7 +74,7 @@ public class Operacion extends Fraccion {
         }
     }
     
-    public String simplificar (int numerador, int denominador) {
+    private String simplificar (int numerador, int denominador) {
         int divisor = mcd(numerador,denominador);
         Fraccion resultado = new Fraccion();
         

@@ -15,6 +15,7 @@ public class Fraccion {
     private int denominador;
 
     public Fraccion() { 
+        this("1/1");
         
     }
     
@@ -40,8 +41,10 @@ public class Fraccion {
     public void setDenominador(int denominador) {
         if(denominador == 0) {
             this.denominador = 1;
+        } else{
+            this.denominador = denominador;
         }
-        this.denominador = denominador;
+        
     }
     
     public int getNumerador(){
@@ -54,7 +57,7 @@ public class Fraccion {
     
     public String toString(){
         
-        return "Valor de fracci\u00f3n es: " + getNumerador() + "/" + getDenominador();
+        return getNumerador() + "/" + getDenominador();
     }
     
     

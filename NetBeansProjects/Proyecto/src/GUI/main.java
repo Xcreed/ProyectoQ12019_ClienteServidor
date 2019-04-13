@@ -6,6 +6,7 @@
 package GUI;
 
 import BL.Fraccion;
+import BL.Operacion;
 
 /**
  *
@@ -15,9 +16,10 @@ public class main {
     
     public static void main(String[] args){
         
-        Fraccion fraccion1 = new Fraccion("1/2");
+        Operacion fraccion1 = new Operacion("1/5","3/2");
         
-        System.out.println(fraccion1.toString());;
+        
+        System.out.println(fraccion1.dividir());
         
     }
     
