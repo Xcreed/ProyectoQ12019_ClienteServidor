@@ -12,12 +12,12 @@ public class Operacion extends Fraccion {
     private Fraccion fraccion2;
     
     public Operacion(){
-        this("1/1","1/1");
+        this(0,0,0,0);
     }
     
-    public Operacion(String fraccion1, String fraccion2) {
-        super(fraccion1);
-        this.fraccion2 = new Fraccion(fraccion2);
+    public Operacion(int numerador1, int denominador1, int numerador2, int denominador2){
+        super(numerador1, denominador1);
+        this.fraccion2 = new Fraccion(numerador2, denominador2);
     }
     
     public String sumar (){

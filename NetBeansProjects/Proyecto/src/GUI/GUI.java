@@ -41,6 +41,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jbtCalcular = new javax.swing.JButton();
@@ -142,15 +143,23 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
+        jFormattedTextField1.setText("jFormattedTextField1");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
@@ -279,6 +288,7 @@ public class GUI extends javax.swing.JFrame {
 
         jtxfNumerador1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jtxfNumerador1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxfNumerador1.setActionCommand("<Not Set>");
         jPanel7.add(jtxfNumerador1);
         jPanel7.add(jSeparator4);
 
@@ -339,29 +349,48 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxfDenominador1ActionPerformed
 
     private void jbtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCalcularActionPerformed
-        String fraccion1 = jtxfNumerador1.getText() +"/"+ jtxfDenominador1.getText();
-        String fraccion2 = jtxfNumerador2.getText() +"/"+ jtxfDenominador2.getText();
+        
         
         if (jtxfNumerador1.getText().equals("0") || jtxfNumerador2.getText().equals("0") 
                 || jtxfDenominador1.getText().equals("0") || jtxfDenominador1.getText().equals("0")) {
-                JOptionPane.showMessageDialog(null, "Alguna de las fracciones contiene valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(null, "Alguna de las fracciones contiene valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         }
-        else if(jtxfNumerador1.getText().equals("") || jtxfNumerador2.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consiste del formato correcto. Verifique y vuelva a intentar.","Informaci\u00f3n", JOptionPane.ERROR_MESSAGE);
-        } 
-        else if(jtxfDenominador1.getText().equals("") || jtxfDenominador1.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Alguna de las fracciones no tiene Denominador. Se ha agregado el valor por omisi\u00f3n que es 1.","Error al crear operaci\u00f3n.", JOptionPane.INFORMATION_MESSAGE);
-            Operacion operacion = new Operacion(fraccion1, fraccion2);
-            realizarCalculo(operacion);
-        } 
-        else {
-            Operacion operacion = new Operacion(fraccion1, fraccion2);
-            realizarCalculo(operacion);
+        else{ 
+            
+            try{
+                int numerador1 = Integer.parseInt(jtxfNumerador1.getText());
+                int denominador1 = Integer.parseInt(jtxfDenominador1.getText());
+                int numerador2 = Integer.parseInt(jtxfNumerador2.getText());
+                int denominador2 =  Integer.parseInt(jtxfDenominador2.getText());
+            
+                Operacion operacion = new Operacion(numerador1, denominador2, numerador2, denominador2);
+                realizarCalculo(operacion);
+
+            } catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+                JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consisten del formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+            } 
+//            catch (ArrayIndexOutOfBoundsException aioe) {  
+//                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no denominador
+//                    numerador = Integer.parseInt(fraccion.split("/")[0]);
+//                    denominador = 1;
+//                } 
+//                else { //Fraccion no tiene valores
+//                    numerador = 1;
+//                    denominador = 1;
+//                    
+//                }
+//
+//            } catch (Exception ex) {
+//                numerador = 1;
+//                denominador = 1;
+//            }
+        
         }
+
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
     private void realizarCalculo(Operacion operacion){
-        while(true){
+        for(;;){
         String resultado = null;
         if(jtbtSuma.isSelected()){
             resultado = operacion.sumar();
@@ -419,6 +448,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

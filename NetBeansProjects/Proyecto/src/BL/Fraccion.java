@@ -15,39 +15,12 @@ public class Fraccion {
     private int denominador;
 
     public Fraccion() { 
-        this("1/1"); //Agregar errores para si es vac[io
+        this(0,0); //Agregar errores para si es vac[io
         
     }
     
-    public Fraccion(String fraccion) {
-        int numerador = 0; //Borrar esto, no se le va a permitir al usuario ingresar datos invalidos. (Mover error handling al gui)
-        int denominador = 0;
+    public Fraccion(int numerador, int denominador) {
         
-        while(numerador == 0 || denominador == 0) {
-            try{
-                numerador = Integer.parseInt(fraccion.split("/")[0]);
-                denominador = Integer.parseInt(fraccion.split("/")[1]);
-            } 
-            catch (NumberFormatException nfe) { //Fraccion no tiene numerador
-                numerador = 1;
-                denominador = Integer.parseInt(fraccion.split("/")[1]);
-            } 
-            catch (ArrayIndexOutOfBoundsException aioe) {  
-                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no denominador
-                    numerador = Integer.parseInt(fraccion.split("/")[0]);
-                    denominador = 1;
-                } 
-                else { //Fraccion no tiene valores
-                    numerador = 1;
-                    denominador = 1;
-                    
-                }
-
-            } catch (Exception ex) {
-                numerador = 1;
-                denominador = 1;
-            }
-        }
         setNumerador(numerador);
         setDenominador(denominador);
         
@@ -88,3 +61,30 @@ public class Fraccion {
     
     
 }
+
+
+//while(numerador == 0 || denominador == 0) {
+//            try{
+//                numerador = Integer.parseInt(fraccion.split("/")[0]);
+//                denominador = Integer.parseInt(fraccion.split("/")[1]);
+//            } 
+//            catch (NumberFormatException nfe) { //Fraccion no tiene numerador
+//                numerador = 1;
+//                denominador = Integer.parseInt(fraccion.split("/")[1]);
+//            } 
+//            catch (ArrayIndexOutOfBoundsException aioe) {  
+//                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no denominador
+//                    numerador = Integer.parseInt(fraccion.split("/")[0]);
+//                    denominador = 1;
+//                } 
+//                else { //Fraccion no tiene valores
+//                    numerador = 1;
+//                    denominador = 1;
+//                    
+//                }
+//
+//            } catch (Exception ex) {
+//                numerador = 1;
+//                denominador = 1;
+//            }
+//        }
