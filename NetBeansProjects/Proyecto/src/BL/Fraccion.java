@@ -30,12 +30,17 @@ public class Fraccion {
 
     public void setNumerador(int numerador) {
         if (numerador == 0) {
-            
+            this.numerador = 1;
+        } else{
+            this.numerador = numerador;
         }
-        this.numerador = numerador;
+        
     }
 
     public void setDenominador(int denominador) {
+        if(denominador == 0) {
+            this.denominador = 1;
+        }
         this.denominador = denominador;
     }
     
