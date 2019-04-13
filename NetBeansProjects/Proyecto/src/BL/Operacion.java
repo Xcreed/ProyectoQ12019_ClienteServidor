@@ -66,7 +66,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());  
     }
     
-    public int mcd (int numerador, int denominador) {
+    private int mcd (int numerador, int denominador) {
         if (numerador % denominador == 0) {
             return denominador;
         } else {
@@ -82,5 +82,10 @@ public class Operacion extends Fraccion {
         resultado.setDenominador(denominador/divisor);
         
         return resultado.toString();
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString()+","+ fraccion2.toString();
     }
 }
