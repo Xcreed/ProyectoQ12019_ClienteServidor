@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package BL;
 
 /**
  *
-<<<<<<< HEAD
  * @author damar
+ * @version 1.0
+ * @since 2019-04-12 11:00 pm MDT
  */
 
 public class Operacion extends Fraccion {
@@ -16,17 +12,16 @@ public class Operacion extends Fraccion {
     private Fraccion fraccion2;
     
     public Operacion(){
-        
+        this("1/1","1/1");
     }
     
     public Operacion(String fraccion1, String fraccion2) {
         super(fraccion1);
         this.fraccion2 = new Fraccion(fraccion2);
-        
     }
     
     public String sumar (){
-        Fraccion resultado = new Fraccion("1/1");
+        Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
             resultado.setNumerador(super.getNumerador() + fraccion2.getNumerador());
@@ -40,7 +35,7 @@ public class Operacion extends Fraccion {
     } 
     
     public String restar () {
-        Fraccion resultado = new Fraccion("1/1");
+        Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
             resultado.setNumerador(super.getNumerador() - fraccion2.getNumerador());
@@ -54,7 +49,7 @@ public class Operacion extends Fraccion {
     }
     
     public String multiplicar () {
-        Fraccion resultado = new Fraccion("1/1");
+        Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getNumerador());
         resultado.setDenominador(super.getDenominador() * fraccion2.getDenominador());
@@ -63,7 +58,7 @@ public class Operacion extends Fraccion {
     }
     
     public String dividir () {
-        Fraccion resultado = new Fraccion("1/1");
+        Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getDenominador());
         resultado.setDenominador(super.getDenominador() * fraccion2.getNumerador());
@@ -81,7 +76,7 @@ public class Operacion extends Fraccion {
     
     public String simplificar (int numerador, int denominador) {
         int divisor = mcd(numerador,denominador);
-        Fraccion resultado = new Fraccion("1/1");
+        Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(numerador/divisor);
         resultado.setDenominador(denominador/divisor);
