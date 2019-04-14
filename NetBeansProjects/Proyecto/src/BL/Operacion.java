@@ -10,17 +10,26 @@ package BL;
 public class Operacion extends Fraccion {
     
     private Fraccion fraccion2;
+    public enum OPERANDO{
+        SUMA,
+        RESTA,
+        MULTIPLICACION,
+        DIVISION,
+    }
+    private OPERANDO operando;
+    private String resultado;
     
-    public Operacion(){
-        this("1/1","1/1");
+    public Operacion() throws Exception{
+        this("1/1","1/1",null);
     }
     
-    public Operacion(String fraccion1, String fraccion2) {
+    public Operacion(String fraccion1, String fraccion2, OPERANDO operando) throws Exception{
         super(fraccion1);
         this.fraccion2 = new Fraccion(fraccion2);
+        this.operando = operando;
     }
     
-    public String sumar (){
+    public String sumar () throws Exception{
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
@@ -34,7 +43,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());
     } 
     
-    public String restar () {
+    public String restar () throws Exception {
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
@@ -48,7 +57,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());    
     }
     
-    public String multiplicar () {
+    public String multiplicar () throws Exception {
         Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getNumerador());
@@ -57,7 +66,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());    
     }
     
-    public String dividir () {
+    public String dividir () throws Exception {
         Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getDenominador());
@@ -66,7 +75,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());  
     }
     
-    public int mcd (int numerador, int denominador) {
+    private int mcd (int numerador, int denominador) {
         if (numerador % denominador == 0) {
             return denominador;
         } else {
@@ -74,13 +83,19 @@ public class Operacion extends Fraccion {
         }
     }
     
-    public String simplificar (int numerador, int denominador) {
+    private String simplificar (int numerador, int denominador) throws Exception {
         int divisor = mcd(numerador,denominador);
         Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(numerador/divisor);
         resultado.setDenominador(denominador/divisor);
         
+        this.resultado = resultado.toString();
         return resultado.toString();
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString()+","+ fraccion2.toString() + "," + operando + "," + resultado;
     }
 }

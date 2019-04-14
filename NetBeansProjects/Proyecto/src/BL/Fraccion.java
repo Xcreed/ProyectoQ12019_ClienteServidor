@@ -14,34 +14,58 @@ public class Fraccion {
     private int numerador;
     private int denominador;
 
-    public Fraccion() { 
+    public Fraccion() throws Exception { 
+        this("1/1"); //Agregar errores para si es vac[io
         
     }
     
-    public Fraccion(String fraccion) {
+    public Fraccion(String fraccion) throws Exception {
         
-        int numerador = Integer.parseInt(fraccion.split("/")[0]);
-        int denominador = Integer.parseInt(fraccion.split("/")[1]);
+        int numerador = 0;
+        int denominador = 0;
+        
+        //while(numerador == 0 || denominador == 0) {
+            try{
+                numerador = Integer.parseInt(fraccion.split("/")[0]);
+                denominador = Integer.parseInt(fraccion.split("/")[1]);
+            } 
+            
+            catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+                throw new Exception("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
+            } 
+            
+            catch (ArrayIndexOutOfBoundsException aioe) {  
+                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no tiene denominador
+                    denominador = 1;
+                    //throw new Exception("La fracci\u00f3n no contiene denominador. Se le agregar\u00e1 un 1 por ser un n\u00famero entero.");
+                } 
+                
+            } catch (Exception ex) {
+                throw new Exception("Error en la fracci\u00f3n. Verifique y vuelva a intentar.");
+            }
+        //}
         
         setNumerador(numerador);
         setDenominador(denominador);
         
     }
 
-    public void setNumerador(int numerador) {
+    public void setNumerador(int numerador) throws Exception{
         if (numerador == 0) {
-            this.numerador = 1;
+            throw new Exception ("El numerador no puede ser 0.");
         } else{
             this.numerador = numerador;
         }
         
     }
 
-    public void setDenominador(int denominador) {
+    public void setDenominador(int denominador) throws Exception {
         if(denominador == 0) {
-            this.denominador = 1;
+            throw new Exception ("El denominador no puede ser 0.");
+        } else{
+            this.denominador = denominador;
         }
-        this.denominador = denominador;
+        
     }
     
     public int getNumerador(){
@@ -54,10 +78,12 @@ public class Fraccion {
     
     public String toString(){
         
-        return "Valor de fracci\u00f3n es: " + getNumerador() + "/" + getDenominador();
+        return getNumerador() + "/" + getDenominador();
     }
     
     
     
     
 }
+
+
