@@ -350,46 +350,25 @@ public class GUI extends javax.swing.JFrame {
 
     private void jbtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCalcularActionPerformed
         
-        
-        if (jtxfNumerador1.getText().equals("0") || jtxfNumerador2.getText().equals("0") 
-                || jtxfDenominador1.getText().equals("0") || jtxfDenominador1.getText().equals("0")) {
-            JOptionPane.showMessageDialog(null, "Alguna de las fracciones contiene valores iguales a 0. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
-        }
-        else{ 
+   
+        try{
+            String fraccion1 = jtxfNumerador1.getText() + "/" + jtxfDenominador1.getText();
+            String fraccion2 = jtxfNumerador2.getText() + "/" + jtxfDenominador2.getText();
             
-            try{
-                int numerador1 = Integer.parseInt(jtxfNumerador1.getText());
-                int denominador1 = Integer.parseInt(jtxfDenominador1.getText());
-                int numerador2 = Integer.parseInt(jtxfNumerador2.getText());
-                int denominador2 =  Integer.parseInt(jtxfDenominador2.getText());
-            
-                Operacion operacion = new Operacion(numerador1, denominador2, numerador2, denominador2);
-                realizarCalculo(operacion);
+            System.out.println(fraccion1 + "," + fraccion2);
+            Operacion operacion = new Operacion(fraccion1, fraccion2);
+            realizarCalculo(operacion);
 
-            } catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
-                JOptionPane.showMessageDialog(null, "Alguna de las fracciones no consisten del formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
-            } 
-//            catch (ArrayIndexOutOfBoundsException aioe) {  
-//                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no denominador
-//                    numerador = Integer.parseInt(fraccion.split("/")[0]);
-//                    denominador = 1;
-//                } 
-//                else { //Fraccion no tiene valores
-//                    numerador = 1;
-//                    denominador = 1;
-//                    
-//                }
-//
-//            } catch (Exception ex) {
-//                numerador = 1;
-//                denominador = 1;
-//            }
+        } catch (Exception error) { //Fraccion no tiene numerador o tiene letras
+            JOptionPane.showMessageDialog(null, error.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+        } 
+
         
-        }
+        
 
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
-    private void realizarCalculo(Operacion operacion){
+    private void realizarCalculo(Operacion operacion) throws Exception{
         for(;;){
         String resultado = null;
         if(jtbtSuma.isSelected()){
@@ -406,7 +385,7 @@ public class GUI extends javax.swing.JFrame {
             break;
         }
             
-        JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa.", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa", JOptionPane.INFORMATION_MESSAGE);
         break;
         }
         jbtgOperaciones.clearSelection();

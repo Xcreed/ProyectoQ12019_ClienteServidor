@@ -11,16 +11,16 @@ public class Operacion extends Fraccion {
     
     private Fraccion fraccion2;
     
-    public Operacion(){
-        this(0,0,0,0);
+    public Operacion() throws Exception{
+        this("/","/");
     }
     
-    public Operacion(int numerador1, int denominador1, int numerador2, int denominador2){
-        super(numerador1, denominador1);
-        this.fraccion2 = new Fraccion(numerador2, denominador2);
+    public Operacion(String fraccion1, String fraccion2) throws Exception{
+        super(fraccion1);
+        this.fraccion2 = new Fraccion(fraccion2);
     }
     
-    public String sumar (){
+    public String sumar () throws Exception{
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
@@ -34,7 +34,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());
     } 
     
-    public String restar () {
+    public String restar () throws Exception {
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
@@ -48,7 +48,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());    
     }
     
-    public String multiplicar () {
+    public String multiplicar () throws Exception {
         Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getNumerador());
@@ -57,7 +57,7 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());    
     }
     
-    public String dividir () {
+    public String dividir () throws Exception {
         Fraccion resultado = new Fraccion();
         
         resultado.setNumerador(super.getNumerador() * fraccion2.getDenominador());
@@ -74,7 +74,7 @@ public class Operacion extends Fraccion {
         }
     }
     
-    private String simplificar (int numerador, int denominador) {
+    private String simplificar (int numerador, int denominador) throws Exception {
         int divisor = mcd(numerador,denominador);
         Fraccion resultado = new Fraccion();
         
