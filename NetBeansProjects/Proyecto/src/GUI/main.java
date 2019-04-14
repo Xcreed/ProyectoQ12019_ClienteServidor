@@ -14,10 +14,10 @@ import BL.Operacion;
  */
 public class main {
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         
         //Operacion fraccion1 = new Operacion("3/","3/2");
-        Fraccion fraccion1 = new Fraccion("0/0");
+        Fraccion fraccion1 = new Fraccion("12/3");
         
         System.out.println(fraccion1.toString());
         
