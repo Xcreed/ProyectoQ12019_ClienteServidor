@@ -41,7 +41,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jbtCalcular = new javax.swing.JButton();
@@ -121,7 +120,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel11, java.awt.BorderLayout.WEST);
@@ -136,30 +135,22 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel12, java.awt.BorderLayout.EAST);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        jFormattedTextField1.setText("jFormattedTextField1");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+            .addGap(0, 562, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
@@ -178,6 +169,8 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel4.add(jPanel16, java.awt.BorderLayout.CENTER);
 
+        jPanel17.setPreferredSize(new java.awt.Dimension(562, 40));
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -186,7 +179,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         jPanel4.add(jPanel17, java.awt.BorderLayout.PAGE_START);
@@ -259,7 +252,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel5.add(jPanel13, java.awt.BorderLayout.EAST);
@@ -274,7 +267,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel5.add(jPanel15, java.awt.BorderLayout.WEST);
@@ -313,7 +306,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel14, java.awt.BorderLayout.EAST);
@@ -328,7 +321,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 236, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel8, java.awt.BorderLayout.WEST);
@@ -350,14 +343,20 @@ public class GUI extends javax.swing.JFrame {
 
     private void jbtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCalcularActionPerformed
         
+        Operacion.OPERANDO operacionOperando = null;
    
         try{
             String fraccion1 = jtxfNumerador1.getText() + "/" + jtxfDenominador1.getText();
             String fraccion2 = jtxfNumerador2.getText() + "/" + jtxfDenominador2.getText();
             
-            System.out.println(fraccion1 + "," + fraccion2);
-            Operacion operacion = new Operacion(fraccion1, fraccion2);
+            if (jtbtSuma.isSelected()) {operacionOperando = Operacion.OPERANDO.SUMA;}
+            else if(jtbtResta.isSelected()) {operacionOperando = Operacion.OPERANDO.RESTA;}
+            else if(jtbtMultiplicacion.isSelected()) {operacionOperando = Operacion.OPERANDO.MULTIPLICACION;}
+            else if(jtbtDivision.isSelected()) {operacionOperando = Operacion.OPERANDO.DIVISION;}
+            
+            Operacion operacion = new Operacion(fraccion1, fraccion2,operacionOperando);
             realizarCalculo(operacion);
+            System.out.println(operacion.toString());
 
         } catch (Exception error) { //Fraccion no tiene numerador o tiene letras
             JOptionPane.showMessageDialog(null, error.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
@@ -427,7 +426,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

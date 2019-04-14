@@ -29,17 +29,17 @@ public class Fraccion {
                 numerador = Integer.parseInt(fraccion.split("/")[0]);
                 denominador = Integer.parseInt(fraccion.split("/")[1]);
             } 
+            
             catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
                 throw new Exception("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
             } 
+            
             catch (ArrayIndexOutOfBoundsException aioe) {  
                 if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no tiene denominador
-                    throw new Exception("La fracci\u00f3n no contiene denominador. Se le agregar\u00e1 un 1 por ser un n\u00famero entero.");
-
+                    denominador = 1;
+                    //throw new Exception("La fracci\u00f3n no contiene denominador. Se le agregar\u00e1 un 1 por ser un n\u00famero entero.");
                 } 
-                //else if (aioe.getMessage().equalsIgnoreCase("0")){ //Fraccion no tiene valores
-                  //  throw new Exception("La fracci\u00f3n no contiene formato correcto. Verifique y vuelva a intentar. Fraccion sin valores");    
-                //}
+                
             } catch (Exception ex) {
                 throw new Exception("Error en la fracci\u00f3n. Verifique y vuelva a intentar.");
             }
@@ -52,7 +52,7 @@ public class Fraccion {
 
     public void setNumerador(int numerador) throws Exception{
         if (numerador == 0) {
-            throw new Exception ("El numerador no puede ser 0");
+            throw new Exception ("El numerador no puede ser 0.");
         } else{
             this.numerador = numerador;
         }
@@ -61,7 +61,7 @@ public class Fraccion {
 
     public void setDenominador(int denominador) throws Exception {
         if(denominador == 0) {
-            throw new Exception ("El denominador no puede ser 0");
+            throw new Exception ("El denominador no puede ser 0.");
         } else{
             this.denominador = denominador;
         }
