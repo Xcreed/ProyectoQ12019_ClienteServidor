@@ -12,12 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author creed
  */
-public class GUI extends javax.swing.JFrame {
+public class jfrmGUI extends javax.swing.JFrame {
+    
+    protected static String resultado = "/";
 
     /**
      * Creates new form GUI
      */
-    public GUI() {
+    public jfrmGUI() {
         initComponents();
     }
 
@@ -64,7 +66,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -343,52 +344,85 @@ public class GUI extends javax.swing.JFrame {
 
     private void jbtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCalcularActionPerformed
         
-        Operacion.OPERANDO operacionOperando = null;
    
         try{
             String fraccion1 = jtxfNumerador1.getText() + "/" + jtxfDenominador1.getText();
             String fraccion2 = jtxfNumerador2.getText() + "/" + jtxfDenominador2.getText();
             
-            if (jtbtSuma.isSelected()) {operacionOperando = Operacion.OPERANDO.SUMA;}
-            else if(jtbtResta.isSelected()) {operacionOperando = Operacion.OPERANDO.RESTA;}
-            else if(jtbtMultiplicacion.isSelected()) {operacionOperando = Operacion.OPERANDO.MULTIPLICACION;}
-            else if(jtbtDivision.isSelected()) {operacionOperando = Operacion.OPERANDO.DIVISION;}
+            for (;;){
+                
+                if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){
+                    JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+                
+                else if (jtbtSuma.isSelected()) {
+                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.SUMA);
+                    resultado = operacion.sumar();                    
+                }
+                
+                else if(jtbtResta.isSelected()) {
+                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.RESTA);
+                    resultado = operacion.restar();                
+                }
+                
+                else if(jtbtMultiplicacion.isSelected()) {
+                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.MULTIPLICACION);
+                    resultado = operacion.multiplicar();                    
+                }
+                
+                else if(jtbtDivision.isSelected()) {
+                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.DIVISION);
+                    resultado = operacion.dividir();operacion.dividir();                    
+                }
+
+                //Operacion operacion = new Operacion(fraccion1, fraccion2,operacionOperando);
+                
+                //realizarCalculo(operacion);
+                jbtgOperaciones.clearSelection();
+                System.out.println(resultado);
+                
+                jfrmResultado _jfrmResultado = new jfrmResultado();
+                _jfrmResultado.setResizable(false);
+                _jfrmResultado.setSize(400, 300);
+                _jfrmResultado.show();
+                
+                break;
+                
+                
+            }
             
-            Operacion operacion = new Operacion(fraccion1, fraccion2,operacionOperando);
-            realizarCalculo(operacion);
-            System.out.println(operacion.toString());
+            
+        
+            
 
         } catch (Exception error) { //Fraccion no tiene numerador o tiene letras
             JOptionPane.showMessageDialog(null, error.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         } 
-
         
         
-
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
-    private void realizarCalculo(Operacion operacion) throws Exception{
-        for(;;){
-        String resultado = null;
-        if(jtbtSuma.isSelected()){
-            resultado = operacion.sumar();
-        } else if (jtbtResta.isSelected()){
-            resultado = operacion.restar();
-        } else if (jtbtMultiplicacion.isSelected()){
-            resultado = operacion.multiplicar();
-        } else if (jtbtDivision.isSelected()){
-            resultado = operacion.dividir();
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
-            //realizarCalculo(operacion); //infinite loop
-            break;
-        }
-            
-        JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa", JOptionPane.INFORMATION_MESSAGE);
-        break;
-        }
-        jbtgOperaciones.clearSelection();
-    }
+//    private void realizarCalculo(Operacion operacion) throws Exception{
+//        for(;;){
+//            if(jtbtSuma.isSelected()){
+//                resultado = operacion.sumar();
+//            } else if (jtbtResta.isSelected()){
+//                resultado = operacion.restar();
+//            } else if (jtbtMultiplicacion.isSelected()){
+//                resultado = operacion.multiplicar();
+//            } else if (jtbtDivision.isSelected()){
+//                resultado = operacion.dividir();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
+//                break;
+//            }
+//
+//            JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa", JOptionPane.INFORMATION_MESSAGE);
+//            break;
+//        }
+//        jbtgOperaciones.clearSelection();
+//    }
     
     /**
      * @param args the command line arguments
@@ -407,20 +441,21 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfrmGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfrmGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfrmGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfrmGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                new jfrmGUI().setVisible(true);
             }
         });
     }
