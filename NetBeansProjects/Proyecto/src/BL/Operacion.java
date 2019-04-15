@@ -1,5 +1,8 @@
 package BL;
 
+import DA.FileAdmin;
+import GUI.jfrmGUI;
+
 /**
  *
  * @author damar
@@ -91,7 +94,43 @@ public class Operacion extends Fraccion {
         resultado.setDenominador(denominador/divisor);
         
         this.resultado = resultado.toString();
+        
         return resultado.toString();
+    }
+    
+    public static String[] getOperaciones(FileAdmin fa) throws Exception{
+        if (fa==null) { 
+            throw new Exception("El adminsitrador de archivos no debe ser nulo al obtener la operacion."); 
+        }
+        
+        String[] registros = null;
+        
+        try {
+            // Se extraen todos los registros del archivo.
+            registros = fa.extraerRegistros();
+            // Se recorren uno a uno para instanciarlos y agregarlos al vector.
+            for (String r : registros) {
+                // Se separan los datos del registro separados por ",".
+                String[] datos = r.split(",");
+            }
+        }catch(Exception err) {
+            throw new Exception("Error en el metodo getOperaciones(FileAdmin).\n- " + err.getMessage());
+        }
+        
+        return registros;
+    }
+    
+    public void insertar(FileAdmin fa) throws Exception {
+        if (fa == null) {
+            throw new Exception("El adminsitrador de archivos no debe ser nulo al insertar."); 
+        }
+        
+        try {
+            String registro = toString();
+            fa.insertarRegistro(registro);
+        } catch(Exception err) {
+            throw new Exception("Error en el metodo insertar(FileAdmin, Operacion).\n- " + err.getMessage());
+        }
     }
     
     @Override

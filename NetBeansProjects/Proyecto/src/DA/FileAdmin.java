@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FileAdmin {
     
-    private File a=null;
+    private File a = null;
     
     /**
      * Instancia el archivo con el valor ingresado.
@@ -27,12 +27,21 @@ public class FileAdmin {
      * @throws Exception En caso de errores.
      */
     protected void setArchivo(String archivo) throws Exception{
-        if(archivo==null){ throw new Exception("El archivo origen es null."); }
-        if(archivo.equals("")){ throw new Exception("El archivo origen esta vacio."); }
+        if (archivo == null) { 
+            throw new Exception("El archivo origen es nulo."); 
+        }
+        if (archivo.equals("")) {
+            throw new Exception("El archivo origen esta vacio."); 
+        }
         
         File f = new File(archivo);
-        if(!f.exists()){ throw new Exception("El archivo origen no exite."); }
-        if(f.isDirectory()){ throw new Exception("El archivo origen no puede ser una carpeta."); }
+        
+        if (!f.exists()) { 
+            throw new Exception("El archivo origen no exite."); 
+        }
+        if (f.isDirectory()) { 
+            throw new Exception("El archivo origen no puede ser una carpeta."); 
+        }
         
         a=f;
     }
@@ -41,14 +50,16 @@ public class FileAdmin {
      * Retorna en archivo origen.
      * @return <code>File</code> Archivo origen.
      */
-    public File getArchivo(){ return a; }
+    public File getArchivo() {
+        return a; 
+    }
     
     /**
      * Constructor principal de la clase FileAdmin
      * @param archivo Nombre y direcci&oacute;n del archivo a utilizar.
      * @throws Exception En caso de errores.
      */
-    public FileAdmin(String archivo) throws Exception{
+    public FileAdmin(String archivo) throws Exception {
         setArchivo(archivo);
     }
     

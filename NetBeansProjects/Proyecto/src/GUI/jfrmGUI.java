@@ -6,6 +6,12 @@
 package GUI;
 
 import BL.Operacion;
+import DA.FileAdmin;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +21,48 @@ import javax.swing.JOptionPane;
 public class jfrmGUI extends javax.swing.JFrame {
     
     protected static String resultado = "/";
+    Date currentDate = new Date();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public String archivoDiario = dateFormat.format(currentDate) + ".csv";
+    public static FileAdmin fileAdmin = null;
+    DefaultListModel lista = new DefaultListModel();
 
     /**
      * Creates new form GUI
      */
     public jfrmGUI() {
         initComponents();
+        
+        try {
+            File file = new File(archivoDiario);
+            if (file.exists() && file.isFile() && file.canRead()) {
+                fileAdmin = new FileAdmin(archivoDiario);
+                file.createNewFile();
+            } else {
+                file.createNewFile();
+            }
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
+        }
+        //cargarDatos();
+    }
+    
+    protected void cargarDatos () {
+        try {
+            lista.removeAllElements();
+            
+            String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
+            
+            for(String s : lasOperaciones) {
+                lista.addElement(s);
+                System.out.println(s);
+            }
+            
+            //Aca se debe agregar el elemento donde se van a mostrar los datos
+            
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al cargar los datos del archivo.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -358,22 +400,26 @@ public class jfrmGUI extends javax.swing.JFrame {
                 
                 else if (jtbtSuma.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.SUMA);
-                    resultado = operacion.sumar();                    
+                    resultado = operacion.sumar();
+                    operacion.insertar(fileAdmin);
                 }
                 
                 else if(jtbtResta.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.RESTA);
-                    resultado = operacion.restar();                
+                    resultado = operacion.restar();    
+                    operacion.insertar(fileAdmin);
                 }
                 
                 else if(jtbtMultiplicacion.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.MULTIPLICACION);
-                    resultado = operacion.multiplicar();                    
+                    resultado = operacion.multiplicar();    
+                    operacion.insertar(fileAdmin);
                 }
                 
                 else if(jtbtDivision.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.DIVISION);
-                    resultado = operacion.dividir();operacion.dividir();                    
+                    resultado = operacion.dividir();operacion.dividir();      
+                    operacion.insertar(fileAdmin);
                 }
 
                 //Operacion operacion = new Operacion(fraccion1, fraccion2,operacionOperando);
