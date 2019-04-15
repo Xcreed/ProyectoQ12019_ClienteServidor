@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/Documents/NetBeansProjects/Progra2Project/ProyectoQ12019_ClienteServidor/NetBeansProjects/Proyecto/src/BL/Operacion.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/Progra2Project/ProyectoQ12019_ClienteServidor/NetBeansProjects/Proyecto/src/BL/Fraccion.java</file>
-=======
-            <file>file:/Users/creed/NetBeansProjects/Proyecto/src/BL/Fraccion.java</file>
-            <file>file:/Users/creed/NetBeansProjects/Proyecto/src/BL/Operacion.java</file>
-            <file>file:/Users/creed/NetBeansProjects/Proyecto/src/GUI/GUI.java</file>
->>>>>>> f8fc73e07d00110b7cf6ccfd937e01618b5274a6
+            <file>file:/D:/Documents/NetBeansProjects/Progra2Project/ProyectoQ12019_ClienteServidor/NetBeansProjects/Proyecto/src/DA/FileAdmin.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/Progra2Project/ProyectoQ12019_ClienteServidor/NetBeansProjects/Proyecto/src/GUI/jfrmGUI.java</file>
         </group>
     </open-files>
 </project-private>
