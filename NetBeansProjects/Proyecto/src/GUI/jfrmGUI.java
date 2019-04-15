@@ -446,12 +446,13 @@ public class jfrmGUI extends javax.swing.JFrame {
         int returnVal = chooser.showOpenDialog(null);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             bitacora = chooser.getSelectedFile().getName();
+            jfrmBitacora _jfrmVerBitacora = new jfrmBitacora();
+            _jfrmVerBitacora.setResizable(false);
+            _jfrmVerBitacora.setSize(500, 550);
+            _jfrmVerBitacora.show();
         }
         
-        jfrmVerBitacora _jfrmVerBitacora = new jfrmVerBitacora();
-        _jfrmVerBitacora.setResizable(false);
-        _jfrmVerBitacora.setSize(500, 550);
-        _jfrmVerBitacora.show();
+        
     }//GEN-LAST:event_jbtnBitacoraActionPerformed
 
     

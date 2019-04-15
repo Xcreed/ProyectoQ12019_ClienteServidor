@@ -5,24 +5,53 @@
  */
 package GUI;
 
+import BL.Operacion;
+import DA.FileAdmin;
+import static GUI.jfrmGUI.fileAdmin;
 import java.io.File;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author creed
  */
 public class jfrmBitacora extends javax.swing.JFrame {
-    
-    protected String bitacora;
-    private String[] bitacorasDisponibles = jfrmGUI.fileAdmin.getListaArchivos();
 
+    DefaultListModel lista = new DefaultListModel();
+    
     /**
-     * Creates new form jfrmBitacora
+     * Creates new form jfrmVerBitacora
      */
     public jfrmBitacora() {
+        
+        try {
+            //File file = new File(jfrmGUI.bitacora);
+            fileAdmin = new FileAdmin("bitacora/" + jfrmGUI.bitacora); //Se define el file admin con el archivo que existe
+            cargarDatos();
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
+        }
         initComponents();
     }
 
+    private void cargarDatos () {
+        try {
+            lista.removeAllElements();
+            
+            String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
+            
+            for(String s : lasOperaciones) {
+                lista.addElement(s);
+                System.out.println(s);
+            }
+            
+            //Aca se debe agregar el elemento donde se van a mostrar los datos
+            
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al cargar los datos del archivo.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,14 +62,12 @@ public class jfrmBitacora extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        JScrollPanel = new javax.swing.JScrollPane();
-        jlstBitacora = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtblBitacora = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jbtnVolver = new javax.swing.JButton();
-        jbtnVisualizar = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -49,40 +76,48 @@ public class jfrmBitacora extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 550));
+        getContentPane().setLayout(new java.awt.BorderLayout(20, 5));
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 200));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Seleccione la bitácora a visualizar");
-        jPanel1.add(jLabel1, java.awt.BorderLayout.PAGE_START);
-
-        jlstBitacora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlstBitacoraMouseClicked(evt);
+        jtblBitacora.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-        JScrollPanel.setViewportView(jlstBitacora);
+        ));
+        jtblBitacora.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jtblBitacora);
 
-        jPanel1.add(JScrollPanel, java.awt.BorderLayout.CENTER);
+        jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(400, 50));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 553, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setLayout(new java.awt.GridLayout(1, 2, 15, 0));
+        jPanel6.setPreferredSize(new java.awt.Dimension(200, 50));
+        jPanel6.setLayout(new java.awt.GridLayout());
 
         jbtnVolver.setText("Volver");
         jbtnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -92,95 +127,94 @@ public class jfrmBitacora extends javax.swing.JFrame {
         });
         jPanel6.add(jbtnVolver);
 
-        jbtnVisualizar.setText("Visualizar");
-        jPanel6.add(jbtnVisualizar);
-
         jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel7.setPreferredSize(new java.awt.Dimension(400, 10));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel7, java.awt.BorderLayout.WEST);
+        jPanel3.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel8.setPreferredSize(new java.awt.Dimension(400, 10));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel8, java.awt.BorderLayout.EAST);
-
-        jPanel9.setPreferredSize(new java.awt.Dimension(553, 30));
+        jPanel3.add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 553, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 80, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel9, java.awt.BorderLayout.PAGE_START);
+        jPanel3.add(jPanel9, java.awt.BorderLayout.LINE_END);
 
-        jPanel10.setPreferredSize(new java.awt.Dimension(553, 30));
+        jPanel10.setPreferredSize(new java.awt.Dimension(100, 10));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 553, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 80, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel10, java.awt.BorderLayout.PAGE_END);
+        jPanel3.add(jPanel10, java.awt.BorderLayout.LINE_START);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(50, 50));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_END);
+
+        jPanel5.setPreferredSize(new java.awt.Dimension(50, 50));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.LINE_START);
@@ -188,14 +222,8 @@ public class jfrmBitacora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jlstBitacoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlstBitacoraMouseClicked
-        // Se selecciona el archivo a visualizar.
-        bitacora = jlstBitacora.getModel().getElementAt(jlstBitacora.getSelectedIndex());
-    }//GEN-LAST:event_jlstBitacoraMouseClicked
-
     private void jbtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVolverActionPerformed
-        this.dispose();
-        //jfrmGUI.
+        this.dispose();        
     }//GEN-LAST:event_jbtnVolverActionPerformed
 
     /**
@@ -224,6 +252,7 @@ public class jfrmBitacora extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(jfrmBitacora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -234,8 +263,6 @@ public class jfrmBitacora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane JScrollPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -246,8 +273,8 @@ public class jfrmBitacora extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JButton jbtnVisualizar;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtnVolver;
-    private javax.swing.JList<String> jlstBitacora;
+    private javax.swing.JTable jtblBitacora;
     // End of variables declaration//GEN-END:variables
 }
