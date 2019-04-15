@@ -37,7 +37,7 @@ public class FileAdmin {
         File f = new File(archivo);
         
         if (!f.exists()) { 
-            throw new Exception("El archivo origen no exite."); 
+            throw new Exception("El archivo origen no existe."); 
         }
         if (f.isDirectory()) { 
             throw new Exception("El archivo origen no puede ser una carpeta."); 
@@ -130,5 +130,17 @@ public class FileAdmin {
                 throw new Exception("Error inesperado al cerrar el escritor.\n- " + e.getMessage());
             }
         }
+    }
+    
+    public String[] getListaArchivos(){
+        File folder = new File("bitacora/");
+        File[] archivosDisponibles = folder.listFiles();
+        String[] listaArchivos = new String[archivosDisponibles.length];
+        
+        for (int i = 0; i< archivosDisponibles.length; i++) {
+            listaArchivos[i] = archivosDisponibles[i].getName();
+            System.out.println(archivosDisponibles[i].getName());
+        }
+        return listaArchivos;
     }
 }

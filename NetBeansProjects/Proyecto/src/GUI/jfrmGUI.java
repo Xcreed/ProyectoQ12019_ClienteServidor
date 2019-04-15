@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -23,8 +25,9 @@ public class jfrmGUI extends javax.swing.JFrame {
     protected static String resultado = "/";
     Date currentDate = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    public String archivoDiario = dateFormat.format(currentDate) + ".csv";
-    public static FileAdmin fileAdmin = null;
+    protected String archivoDiario = "bitacora/" + dateFormat.format(currentDate) + ".csv";
+    protected static FileAdmin fileAdmin = null;
+    protected static String bitacora;
     DefaultListModel lista = new DefaultListModel();
 
     /**
@@ -36,32 +39,13 @@ public class jfrmGUI extends javax.swing.JFrame {
         try {
             File file = new File(archivoDiario);
             if (file.exists() && file.isFile() && file.canRead()) {
-                fileAdmin = new FileAdmin(archivoDiario);
-                file.createNewFile();
+                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el archivo que existe
             } else {
-                file.createNewFile();
+                file.createNewFile(); //Se crea el archivo
+                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el nuevo archivo
             }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
-        }
-        //cargarDatos();
-    }
-    
-    protected void cargarDatos () {
-        try {
-            lista.removeAllElements();
-            
-            String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
-            
-            for(String s : lasOperaciones) {
-                lista.addElement(s);
-                System.out.println(s);
-            }
-            
-            //Aca se debe agregar el elemento donde se van a mostrar los datos
-            
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al cargar los datos del archivo.", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -88,6 +72,7 @@ public class jfrmGUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jbtCalcular = new javax.swing.JButton();
+        jbtnBitacora = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -108,6 +93,8 @@ public class jfrmGUI extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Calculadora de Fracciones");
+        setPreferredSize(new java.awt.Dimension(500, 550));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -119,17 +106,19 @@ public class jfrmGUI extends javax.swing.JFrame {
         jPanel10.setLayout(new java.awt.GridLayout(4, 1, 10, 3));
 
         jbtgOperaciones.add(jtbtSuma);
+        jtbtSuma.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jtbtSuma.setText("+");
         jtbtSuma.setMaximumSize(new java.awt.Dimension(20, 29));
-        jtbtSuma.setMinimumSize(new java.awt.Dimension(20, 29));
-        jtbtSuma.setPreferredSize(new java.awt.Dimension(20, 29));
+        jtbtSuma.setMinimumSize(new java.awt.Dimension(20, 40));
+        jtbtSuma.setPreferredSize(new java.awt.Dimension(20, 40));
         jPanel10.add(jtbtSuma);
 
         jbtgOperaciones.add(jtbtResta);
+        jtbtResta.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jtbtResta.setText("-");
         jtbtResta.setMaximumSize(new java.awt.Dimension(20, 29));
-        jtbtResta.setMinimumSize(new java.awt.Dimension(20, 29));
-        jtbtResta.setPreferredSize(new java.awt.Dimension(20, 29));
+        jtbtResta.setMinimumSize(new java.awt.Dimension(20, 40));
+        jtbtResta.setPreferredSize(new java.awt.Dimension(20, 40));
         jtbtResta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtbtRestaActionPerformed(evt);
@@ -138,17 +127,19 @@ public class jfrmGUI extends javax.swing.JFrame {
         jPanel10.add(jtbtResta);
 
         jbtgOperaciones.add(jtbtMultiplicacion);
+        jtbtMultiplicacion.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jtbtMultiplicacion.setText("x");
         jtbtMultiplicacion.setMaximumSize(new java.awt.Dimension(20, 29));
-        jtbtMultiplicacion.setMinimumSize(new java.awt.Dimension(20, 29));
-        jtbtMultiplicacion.setPreferredSize(new java.awt.Dimension(20, 29));
+        jtbtMultiplicacion.setMinimumSize(new java.awt.Dimension(20, 40));
+        jtbtMultiplicacion.setPreferredSize(new java.awt.Dimension(20, 40));
         jPanel10.add(jtbtMultiplicacion);
 
         jbtgOperaciones.add(jtbtDivision);
+        jtbtDivision.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jtbtDivision.setText("÷");
         jtbtDivision.setMaximumSize(new java.awt.Dimension(20, 29));
-        jtbtDivision.setMinimumSize(new java.awt.Dimension(20, 29));
-        jtbtDivision.setPreferredSize(new java.awt.Dimension(20, 29));
+        jtbtDivision.setMinimumSize(new java.awt.Dimension(20, 40));
+        jtbtDivision.setPreferredSize(new java.awt.Dimension(20, 40));
         jPanel10.add(jtbtDivision);
 
         jPanel2.add(jPanel10, java.awt.BorderLayout.CENTER);
@@ -200,7 +191,7 @@ public class jfrmGUI extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jPanel16.setLayout(new java.awt.BorderLayout());
+        jPanel16.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
 
         jbtCalcular.setText("Calcular");
         jbtCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +199,15 @@ public class jfrmGUI extends javax.swing.JFrame {
                 jbtCalcularActionPerformed(evt);
             }
         });
-        jPanel16.add(jbtCalcular, java.awt.BorderLayout.CENTER);
+        jPanel16.add(jbtCalcular);
+
+        jbtnBitacora.setText("Ver Bitácora");
+        jbtnBitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnBitacoraActionPerformed(evt);
+            }
+        });
+        jPanel16.add(jbtnBitacora);
 
         jPanel4.add(jPanel16, java.awt.BorderLayout.CENTER);
 
@@ -393,7 +392,7 @@ public class jfrmGUI extends javax.swing.JFrame {
             
             for (;;){
                 
-                if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){
+                if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){ //No se ha seleccionado operando
                     JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
                     break;
                 }
@@ -421,12 +420,8 @@ public class jfrmGUI extends javax.swing.JFrame {
                     resultado = operacion.dividir();operacion.dividir();      
                     operacion.insertar(fileAdmin);
                 }
-
-                //Operacion operacion = new Operacion(fraccion1, fraccion2,operacionOperando);
                 
-                //realizarCalculo(operacion);
                 jbtgOperaciones.clearSelection();
-                System.out.println(resultado);
                 
                 jfrmResultado _jfrmResultado = new jfrmResultado();
                 _jfrmResultado.setResizable(false);
@@ -435,13 +430,7 @@ public class jfrmGUI extends javax.swing.JFrame {
                 
                 break;
                 
-                
             }
-            
-            
-        
-            
-
         } catch (Exception error) { //Fraccion no tiene numerador o tiene letras
             JOptionPane.showMessageDialog(null, error.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         } 
@@ -449,26 +438,22 @@ public class jfrmGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
-//    private void realizarCalculo(Operacion operacion) throws Exception{
-//        for(;;){
-//            if(jtbtSuma.isSelected()){
-//                resultado = operacion.sumar();
-//            } else if (jtbtResta.isSelected()){
-//                resultado = operacion.restar();
-//            } else if (jtbtMultiplicacion.isSelected()){
-//                resultado = operacion.multiplicar();
-//            } else if (jtbtDivision.isSelected()){
-//                resultado = operacion.dividir();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
-//                break;
-//            }
-//
-//            JOptionPane.showMessageDialog(null, "El resultado de la operaci\u00f3n es: " + resultado,"Operaci\u00f3n exitosa", JOptionPane.INFORMATION_MESSAGE);
-//            break;
-//        }
-//        jbtgOperaciones.clearSelection();
-//    }
+    private void jbtnBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitacoraActionPerformed
+        JFileChooser chooser = new JFileChooser("bitacora/");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos tipo CSV","csv");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Seleccione el archivo fuente");
+        int returnVal = chooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            bitacora = chooser.getSelectedFile().getName();
+        }
+        
+        jfrmVerBitacora _jfrmVerBitacora = new jfrmVerBitacora();
+        _jfrmVerBitacora.setResizable(false);
+        _jfrmVerBitacora.setSize(500, 550);
+        _jfrmVerBitacora.show();
+    }//GEN-LAST:event_jbtnBitacoraActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -531,6 +516,7 @@ public class jfrmGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton jbtCalcular;
     private javax.swing.ButtonGroup jbtgOperaciones;
+    private javax.swing.JButton jbtnBitacora;
     private javax.swing.JToggleButton jtbtDivision;
     private javax.swing.JToggleButton jtbtMultiplicacion;
     private javax.swing.JToggleButton jtbtResta;

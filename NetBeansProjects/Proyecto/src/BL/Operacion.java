@@ -100,7 +100,7 @@ public class Operacion extends Fraccion {
     
     public static String[] getOperaciones(FileAdmin fa) throws Exception{
         if (fa==null) { 
-            throw new Exception("El adminsitrador de archivos no debe ser nulo al obtener la operacion."); 
+            throw new Exception("El administrador de archivos no debe ser nulo al obtener la operacion."); 
         }
         
         String[] registros = null;
@@ -122,7 +122,7 @@ public class Operacion extends Fraccion {
     
     public void insertar(FileAdmin fa) throws Exception {
         if (fa == null) {
-            throw new Exception("El adminsitrador de archivos no debe ser nulo al insertar."); 
+            throw new Exception("El administrador de archivos no debe ser nulo al insertar."); 
         }
         
         try {
