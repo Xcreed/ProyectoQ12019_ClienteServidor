@@ -11,14 +11,19 @@ import static GUI.jfrmGUI.fileAdmin;
 import java.io.File;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
  * @author creed
  */
 public class jfrmBitacora extends javax.swing.JFrame {
+    
+    //jtblBitacora.setModel(new javax.swing.JTable(rowData, columnNames));
 
     DefaultListModel lista = new DefaultListModel();
+    String[][] registros;
     
     /**
      * Creates new form jfrmVerBitacora
@@ -29,10 +34,12 @@ public class jfrmBitacora extends javax.swing.JFrame {
             //File file = new File(jfrmGUI.bitacora);
             fileAdmin = new FileAdmin("bitacora/" + jfrmGUI.bitacora); //Se define el file admin con el archivo que existe
             cargarDatos();
+            initComponents();
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
+            dispose();
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
         }
-        initComponents();
+        
     }
 
     private void cargarDatos () {
@@ -40,16 +47,22 @@ public class jfrmBitacora extends javax.swing.JFrame {
             lista.removeAllElements();
             
             String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
+            if (lasOperaciones.length == 0) { throw new Exception ("El archivo no contiene registros."); }
             
-            for(String s : lasOperaciones) {
-                lista.addElement(s);
-                System.out.println(s);
+            else{
+                registros = new String[lasOperaciones.length][4];
+
+                for(int i = 0; i < lasOperaciones.length; i++){
+                    registros[i][0] = lasOperaciones[i].split(",")[0]; //Asignacion de fracción 1
+                    registros[i][1] = lasOperaciones[i].split(",")[1]; //Asignacion de fracción 2
+                    registros[i][2] = lasOperaciones[i].split(",")[2]; //Asignacion de operando
+                    registros[i][3] = lasOperaciones[i].split(",")[3]; //Asignacion de resultado
+                }
             }
-            
-            //Aca se debe agregar el elemento donde se van a mostrar los datos
             
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, err.getMessage(), "Error al cargar los datos del archivo.", JOptionPane.ERROR_MESSAGE);
+            
         }
     }
     /**
@@ -82,16 +95,13 @@ public class jfrmBitacora extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jtblBitacora.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            registros,
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fracci\u00f3n 1", "Fracci\u00f3n 2", "Operando", "Resultado"
             }
-        ));
+        ){public boolean isCellEditable(int row, int column){return false;}});
+        jtblBitacora.setShowGrid(true);
+        jtblBitacora.setShowHorizontalLines(false);
         jtblBitacora.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jtblBitacora);
 
@@ -117,7 +127,7 @@ public class jfrmBitacora extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jPanel6.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jbtnVolver.setText("Volver");
         jbtnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -189,13 +199,13 @@ public class jfrmBitacora extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(50, 50));
+        jPanel4.setPreferredSize(new java.awt.Dimension(35, 50));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,13 +214,13 @@ public class jfrmBitacora extends javax.swing.JFrame {
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_END);
 
-        jPanel5.setPreferredSize(new java.awt.Dimension(50, 50));
+        jPanel5.setPreferredSize(new java.awt.Dimension(35, 50));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

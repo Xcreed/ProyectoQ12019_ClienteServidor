@@ -11,6 +11,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,7 +37,6 @@ public class jfrmGUI extends javax.swing.JFrame {
      */
     public jfrmGUI() {
         initComponents();
-        
         try {
             File file = new File(archivoDiario);
             if (file.exists() && file.isFile() && file.canRead()) {
@@ -448,8 +449,9 @@ public class jfrmGUI extends javax.swing.JFrame {
             bitacora = chooser.getSelectedFile().getName();
             jfrmBitacora _jfrmVerBitacora = new jfrmBitacora();
             _jfrmVerBitacora.setResizable(false);
-            _jfrmVerBitacora.setSize(500, 550);
+            _jfrmVerBitacora.setSize(600, 550);
             _jfrmVerBitacora.show();
+                
         }
         
         
