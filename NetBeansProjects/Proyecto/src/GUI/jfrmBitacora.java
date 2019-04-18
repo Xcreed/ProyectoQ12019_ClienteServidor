@@ -16,13 +16,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author creed
+ * @author Juan Pablo Mayorga
  */
 public class jfrmBitacora extends javax.swing.JFrame {
     
-    //jtblBitacora.setModel(new javax.swing.JTable(rowData, columnNames));
-
-    DefaultListModel lista = new DefaultListModel();
     String[][] registros;
     
     /**
@@ -42,9 +39,11 @@ public class jfrmBitacora extends javax.swing.JFrame {
         
     }
 
+    /**
+     * Lee los datos del archivo y los carga en una matriz para que sea usada por JTable
+     */
     private void cargarDatos () {
         try {
-            lista.removeAllElements();
             
             String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
             if (lasOperaciones.length == 0) { throw new Exception ("El archivo no contiene registros."); }

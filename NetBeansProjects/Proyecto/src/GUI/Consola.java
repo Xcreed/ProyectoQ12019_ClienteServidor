@@ -36,39 +36,39 @@ public class Consola {
     public static void main(String[] args) {
         
     
-    
-    try {
-        File file = new File(archivoDiario);
-        if (file.exists() && file.isFile() && file.canRead()) {
-            fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el archivo que existe
-        } else {
-            file.createNewFile(); //Se crea el archivo
-            fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el nuevo archivo
+        
+        try {
+            File file = new File(archivoDiario);
+            if (file.exists() && file.isFile() && file.canRead()) {
+                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el archivo que existe
+            } else {
+                file.createNewFile(); //Se crea el archivo
+                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el nuevo archivo
+            } 
+        } catch (Exception err) {
+            System.out.println(err.getMessage());
+        }
+
+
+        System.out.println("Por favor ingrese la operacion con el siguiente formato:\nFraccion 1 operando Fraccion 2");
+            //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
+
+        try {
+
+            String operacionDeUsuario = teclado.readLine();
+            //Separa el input del usuario en el formato dado
+            operacion[0] = operacionDeUsuario.split(" ")[0].trim();
+            operacion[1] = operacionDeUsuario.split(" ")[1].trim();
+            operacion[2] = operacionDeUsuario.split(" ")[2].trim();
+            crearOperacion();
+
         } 
-    } catch (Exception err) {
-        System.out.println(err.getMessage());
-    }
-    
-    
-    System.out.println("Por favor ingrese la operacion con el siguiente formato:\nFraccion 1 operando Fraccion 2");
-    boolean vectorNoLleno = true;
-        //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
-        while(operacion[2] == null){
-            
-            try {
-                
-                String operacionDeUsuario = teclado.readLine();
-                //Separa el input del usuario en el formato dado
-                operacion[0] = operacionDeUsuario.split(" ")[0].trim();
-                operacion[1] = operacionDeUsuario.split(" ")[1].trim();
-                operacion[2] = operacionDeUsuario.split(" ")[2].trim();
-                crearOperacion();
 
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-
-
+        catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
+            System.out.println("Verifique el formato de la operaci\u00f3n.");
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         
     }

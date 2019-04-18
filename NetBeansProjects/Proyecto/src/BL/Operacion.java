@@ -22,23 +22,28 @@ public class Operacion extends Fraccion {
     private OPERANDO operando;
     private String resultado;
     
+    /**
+     * Constructor con valores por omisión
+     * @throws Exception 
+     */
     public Operacion() throws Exception{
         this("1/1","1/1",null);
     }
     
+    /**
+     * Constructor con los valores completos para realizar la operación
+     * @param fraccion1 de la operación
+     * @param fraccion2 de la operación
+     * @param operando para realizar la operación
+     * @throws Exception cuando el formato no es el correcto
+     */
     public Operacion(String fraccion1, String fraccion2, OPERANDO operando) throws Exception{
         super(fraccion1);
         this.fraccion2 = new Fraccion(fraccion2);
         this.operando = operando;
     }
     
-    public Operacion(Fraccion fraccion1, Fraccion fraccion2, OPERANDO operando) throws Exception {
-        super.setNumerador(fraccion1.getNumerador());
-        super.setDenominador(fraccion1.getDenominador());
-        this.fraccion2 = fraccion2;
-        this.operando = operando;
-        
-    }
+    
     public String sumar () throws Exception{
         Fraccion resultado = new Fraccion();
         
