@@ -30,8 +30,7 @@ public class jfrmGUI extends javax.swing.JFrame {
     protected String archivoDiario = "bitacora/" + dateFormat.format(currentDate) + ".csv";
     protected static FileAdmin fileAdmin = null;
     protected static String bitacora;
-    DefaultListModel lista = new DefaultListModel();
-
+    
     /**
      * Creates new form GUI
      */

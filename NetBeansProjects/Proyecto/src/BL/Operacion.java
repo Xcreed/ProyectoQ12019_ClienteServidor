@@ -32,6 +32,13 @@ public class Operacion extends Fraccion {
         this.operando = operando;
     }
     
+    public Operacion(Fraccion fraccion1, Fraccion fraccion2, OPERANDO operando) throws Exception {
+        super.setNumerador(fraccion1.getNumerador());
+        super.setDenominador(fraccion1.getDenominador());
+        this.fraccion2 = fraccion2;
+        this.operando = operando;
+        
+    }
     public String sumar () throws Exception{
         Fraccion resultado = new Fraccion();
         
