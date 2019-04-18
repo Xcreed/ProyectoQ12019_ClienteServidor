@@ -9,11 +9,7 @@ import BL.Operacion;
 import DA.FileAdmin;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -383,6 +379,11 @@ public class jfrmGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxfDenominador1ActionPerformed
 
+    /**
+     * Realiza operación cuando el usuario lo desee
+     * Puede dar excepciones por mal formato de fracciones utilizadas 
+     * @param evt 
+     */
     private void jbtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCalcularActionPerformed
         
    
@@ -391,38 +392,39 @@ public class jfrmGUI extends javax.swing.JFrame {
             String fraccion2 = jtxfNumerador2.getText() + "/" + jtxfDenominador2.getText();
             
             for (;;){
-                
+                //No hay operando seleccionado, no realiza operación
                 if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){ //No se ha seleccionado operando
                     JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
                     break;
                 }
-                
+                //Sumar
                 else if (jtbtSuma.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.SUMA);
                     resultado = operacion.sumar();
                     operacion.insertar(fileAdmin);
                 }
-                
+                //Restar
                 else if(jtbtResta.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.RESTA);
                     resultado = operacion.restar();    
                     operacion.insertar(fileAdmin);
                 }
-                
+                //Multiplicar
                 else if(jtbtMultiplicacion.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.MULTIPLICACION);
                     resultado = operacion.multiplicar();    
                     operacion.insertar(fileAdmin);
                 }
-                
+                //Dividir
                 else if(jtbtDivision.isSelected()) {
                     Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.DIVISION);
                     resultado = operacion.dividir();operacion.dividir();      
                     operacion.insertar(fileAdmin);
                 }
-                
+                //Se limpia el operando seleccionado esperando una siguiente operación
                 jbtgOperaciones.clearSelection();
                 
+                //Crea una ventana nueva donde muestra el resultado
                 jfrmResultado _jfrmResultado = new jfrmResultado();
                 _jfrmResultado.setResizable(false);
                 _jfrmResultado.setSize(400, 300);
@@ -438,6 +440,11 @@ public class jfrmGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtCalcularActionPerformed
 
+    /**
+     * Método para ver las bitácoras
+     * Crea una ventana nueva después de que se escogió el archivo que se desea visualizar
+     * @param evt 
+     */
     private void jbtnBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitacoraActionPerformed
         JFileChooser chooser = new JFileChooser("bitacora/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos tipo CSV","csv");
