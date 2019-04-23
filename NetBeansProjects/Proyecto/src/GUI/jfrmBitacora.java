@@ -49,13 +49,14 @@ public class jfrmBitacora extends javax.swing.JFrame {
             if (lasOperaciones.length == 0) { throw new Exception ("El archivo no contiene registros."); }
             
             else{
-                registros = new String[lasOperaciones.length][4];
+                registros = new String[lasOperaciones.length][5];
 
                 for(int i = 0; i < lasOperaciones.length; i++){
                     registros[i][0] = lasOperaciones[i].split(",")[0]; //Asignacion de fracción 1
                     registros[i][1] = lasOperaciones[i].split(",")[1]; //Asignacion de fracción 2
                     registros[i][2] = lasOperaciones[i].split(",")[2]; //Asignacion de operando
                     registros[i][3] = lasOperaciones[i].split(",")[3]; //Asignacion de resultado
+                    registros[i][4] = lasOperaciones[i].split(",")[4]; //Asignacion de Hora
                 }
             }
             
@@ -96,7 +97,7 @@ public class jfrmBitacora extends javax.swing.JFrame {
         jtblBitacora.setModel(new javax.swing.table.DefaultTableModel(
             registros,
             new String [] {
-                "Fracci\u00f3n 1", "Fracci\u00f3n 2", "Operando", "Resultado"
+                "Fracci\u00f3n 1", "Fracci\u00f3n 2", "Operando", "Resultado", "Hora"
             }
         ){public boolean isCellEditable(int row, int column){return false;}});
         jtblBitacora.setShowGrid(true);
@@ -232,7 +233,7 @@ public class jfrmBitacora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVolverActionPerformed
-        this.dispose();        
+        dispose();        
     }//GEN-LAST:event_jbtnVolverActionPerformed
 
     /**

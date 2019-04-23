@@ -455,7 +455,7 @@ public class jfrmGUI extends javax.swing.JFrame {
             bitacora = chooser.getSelectedFile().getName();
             jfrmBitacora _jfrmVerBitacora = new jfrmBitacora();
             _jfrmVerBitacora.setResizable(true);
-            _jfrmVerBitacora.setSize(600, 550);
+            _jfrmVerBitacora.setSize(700, 550);
             _jfrmVerBitacora.show();
                 
         }
