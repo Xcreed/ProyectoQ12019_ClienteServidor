@@ -426,8 +426,8 @@ public class jfrmGUI extends javax.swing.JFrame {
                 
                 //Crea una ventana nueva donde muestra el resultado
                 jfrmResultado _jfrmResultado = new jfrmResultado();
-                _jfrmResultado.setResizable(false);
-                _jfrmResultado.setSize(400, 300);
+                _jfrmResultado.setResizable(true);
+                _jfrmResultado.setSize(450, 370);
                 _jfrmResultado.show();
                 
                 break;
@@ -454,7 +454,7 @@ public class jfrmGUI extends javax.swing.JFrame {
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             bitacora = chooser.getSelectedFile().getName();
             jfrmBitacora _jfrmVerBitacora = new jfrmBitacora();
-            _jfrmVerBitacora.setResizable(false);
+            _jfrmVerBitacora.setResizable(true);
             _jfrmVerBitacora.setSize(600, 550);
             _jfrmVerBitacora.show();
                 
