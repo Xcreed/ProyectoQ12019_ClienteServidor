@@ -385,25 +385,19 @@ public class jfrmGUI extends javax.swing.JFrame {
                 throw new Exception("Seleccione un operando y vuelva a intentar.");
             }
             
+            System.out.println(jtxfNumerador1.getText());
+            System.out.println(jtxfNumerador2.getText());
+            System.out.println(jtxfDenominador1.getText().isEmpty());
+            System.out.println(jtxfDenominador2.getText());
             
             int numerador1 = Integer.parseInt(jtxfNumerador1.getText());
-            int denominador1 = 0;
+            int denominador1 = 1;
             int numerador2 = Integer.parseInt(jtxfNumerador2.getText());
-            int denominador2 = 0;
+            int denominador2 = 1;
             
-            if (jtxfDenominador1.getText() == null ){
-                denominador1 = Integer.parseInt(jtxfDenominador1.getText());
-            } 
+            if (jtxfDenominador1.getText().isEmpty()){ denominador1 = 1;  } else { denominador1 = Integer.parseInt(jtxfDenominador1.getText());}
             
-            else if (jtxfDenominador2.getText() == null ){
-                denominador2 = Integer.parseInt(jtxfDenominador2.getText());
-            } 
-            
-            else {
-                denominador1 = Integer.parseInt(jtxfDenominador1.getText());
-            
-                denominador2 = Integer.parseInt(jtxfDenominador2.getText());
-            }
+            if (jtxfDenominador2.getText().isEmpty()){ denominador2 =  1;  } else { denominador2 = Integer.parseInt(jtxfDenominador2.getText());}
                         
             //Crea el file admin solo si existe una operacion valida
             try {

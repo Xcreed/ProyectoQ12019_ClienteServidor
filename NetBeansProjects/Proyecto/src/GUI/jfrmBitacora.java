@@ -33,8 +33,7 @@ public class jfrmBitacora extends javax.swing.JFrame {
             cargarDatos();
             initComponents();
         } catch (Exception err) {
-            dispose();
-            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);         
         }
         
     }
