@@ -27,7 +27,7 @@ public class Operacion extends Fraccion {
      * @throws Exception 
      */
     public Operacion() throws Exception{
-        this("1/1","1/1",null);
+        this(1,1,1,1,null);
     }
     
     /**
@@ -37,9 +37,9 @@ public class Operacion extends Fraccion {
      * @param operando para realizar la operación
      * @throws Exception cuando el formato no es el correcto
      */
-    public Operacion(String fraccion1, String fraccion2, OPERANDO operando) throws Exception{
-        super(fraccion1);
-        this.fraccion2 = new Fraccion(fraccion2);
+    public Operacion(int numerador1, int denominador1, int numerador2, int denominador2, OPERANDO operando) throws Exception{
+        super(numerador1, denominador1);
+        this.fraccion2 = new Fraccion(numerador2, denominador2);
         this.operando = operando;
     }
     

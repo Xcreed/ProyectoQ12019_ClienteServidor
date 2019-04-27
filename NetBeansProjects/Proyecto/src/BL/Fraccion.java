@@ -19,39 +19,17 @@ public class Fraccion {
      * @throws Exception cuando el formato no es el correcto
      */
     public Fraccion() throws Exception { 
-        this("1/1"); //Agregar errores para si es vac[io
+        this(1,1); //Agregar errores para si es vac[io
         
     }
     
     /**
      * Constructor con valores correctos para construir la fracción
+     * @param numerador
+     * @param denominador
      * @throws Exception cuando el formato no es el correcto
      */
-    public Fraccion(String fraccion) throws Exception {
-        
-        int numerador = 0;
-        int denominador = 0;
-        
-        //while(numerador == 0 || denominador == 0) {
-            try{
-                numerador = Integer.parseInt(fraccion.split("/")[0]);
-                denominador = Integer.parseInt(fraccion.split("/")[1]);
-            } 
-            
-            catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
-                throw new Exception("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
-            } 
-            
-            catch (ArrayIndexOutOfBoundsException aioe) {  
-                if (aioe.getMessage().equalsIgnoreCase("1")){ //Fraccion no tiene denominador
-                    denominador = 1;
-                    //throw new Exception("La fracci\u00f3n no contiene denominador. Se le agregar\u00e1 un 1 por ser un n\u00famero entero.");
-                } 
-                
-            } catch (Exception ex) {
-                throw new Exception("Error en la fracci\u00f3n. Verifique y vuelva a intentar.");
-            }
-        //}
+    public Fraccion(int numerador, int denominador) throws Exception {
         
         setNumerador(numerador);
         setDenominador(denominador);

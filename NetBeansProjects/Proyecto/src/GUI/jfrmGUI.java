@@ -32,17 +32,7 @@ public class jfrmGUI extends javax.swing.JFrame {
      */
     public jfrmGUI() {
         initComponents();
-        try {
-            File file = new File(archivoDiario);
-            if (file.exists() && file.isFile() && file.canRead()) {
-                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el archivo que existe
-            } else {
-                file.createNewFile(); //Se crea el archivo
-                fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el nuevo archivo
-            }
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
-        }
+        
     }
 
     /**
@@ -388,36 +378,69 @@ public class jfrmGUI extends javax.swing.JFrame {
         
    
         try{
-            String fraccion1 = jtxfNumerador1.getText() + "/" + jtxfDenominador1.getText();
-            String fraccion2 = jtxfNumerador2.getText() + "/" + jtxfDenominador2.getText();
+            
+            //No hay operando seleccionado, no realiza operación
+            if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){ //No se ha seleccionado operando
+                //JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
+                throw new Exception("Seleccione un operando y vuelva a intentar.");
+            }
+            
+            
+            int numerador1 = Integer.parseInt(jtxfNumerador1.getText());
+            int denominador1 = 0;
+            int numerador2 = Integer.parseInt(jtxfNumerador2.getText());
+            int denominador2 = 0;
+            
+            if (jtxfDenominador1.getText() == null ){
+                denominador1 = Integer.parseInt(jtxfDenominador1.getText());
+            } 
+            
+            else if (jtxfDenominador2.getText() == null ){
+                denominador2 = Integer.parseInt(jtxfDenominador2.getText());
+            } 
+            
+            else {
+                denominador1 = Integer.parseInt(jtxfDenominador1.getText());
+            
+                denominador2 = Integer.parseInt(jtxfDenominador2.getText());
+            }
+                        
+            //Crea el file admin solo si existe una operacion valida
+            try {
+                File file = new File(archivoDiario);
+                if (file.exists() && file.isFile() && file.canRead()) {
+                    fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el archivo que existe
+                } else {
+                    file.createNewFile(); //Se crea el archivo
+                    fileAdmin = new FileAdmin(archivoDiario); //Se define el file admin con el nuevo archivo
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
+            }
             
             for (;;){
-                //No hay operando seleccionado, no realiza operación
-                if (!jtbtSuma.isSelected() && !jtbtResta.isSelected() && !jtbtMultiplicacion.isSelected() && !jtbtDivision.isSelected()){ //No se ha seleccionado operando
-                    JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
+
                 //Sumar
-                else if (jtbtSuma.isSelected()) {
-                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.SUMA);
+                if (jtbtSuma.isSelected()) {
+                    Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.SUMA);
                     resultado = operacion.sumar();
                     operacion.insertar(fileAdmin);
                 }
                 //Restar
                 else if(jtbtResta.isSelected()) {
-                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.RESTA);
+                    Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.RESTA);
                     resultado = operacion.restar();    
                     operacion.insertar(fileAdmin);
                 }
                 //Multiplicar
                 else if(jtbtMultiplicacion.isSelected()) {
-                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.MULTIPLICACION);
+                    Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.MULTIPLICACION);
                     resultado = operacion.multiplicar();    
                     operacion.insertar(fileAdmin);
                 }
                 //Dividir
                 else if(jtbtDivision.isSelected()) {
-                    Operacion operacion = new Operacion(fraccion1, fraccion2,Operacion.OPERANDO.DIVISION);
+                    Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.DIVISION);
                     resultado = operacion.dividir();operacion.dividir();      
                     operacion.insertar(fileAdmin);
                 }
@@ -433,9 +456,15 @@ public class jfrmGUI extends javax.swing.JFrame {
                 break;
                 
             }
-        } catch (Exception error) { //Fraccion no tiene numerador o tiene letras
-            JOptionPane.showMessageDialog(null, error.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+        } catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+            JOptionPane.showMessageDialog(null, "La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         } 
+ 
+
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
+        }
+            
         
         
     }//GEN-LAST:event_jbtCalcularActionPerformed
