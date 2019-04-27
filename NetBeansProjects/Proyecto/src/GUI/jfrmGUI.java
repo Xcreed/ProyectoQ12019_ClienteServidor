@@ -409,9 +409,7 @@ public class jfrmGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
             }
             
-            
-            //for (;;){
-
+           
                 //Sumar
                 if (jtbtSuma.isSelected()) {
                     Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.SUMA);
@@ -445,9 +443,6 @@ public class jfrmGUI extends javax.swing.JFrame {
                 _jfrmResultado.setSize(450, 370);
                 _jfrmResultado.show();
                 
-                //break;
-                
-            //}
         } catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
             JOptionPane.showMessageDialog(null, "La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         } 
