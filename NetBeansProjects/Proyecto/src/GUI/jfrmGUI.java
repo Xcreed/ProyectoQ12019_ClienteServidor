@@ -384,22 +384,19 @@ public class jfrmGUI extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, "Seleccione un operando y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE);
                 throw new Exception("Seleccione un operando y vuelva a intentar.");
             }
-            
-            System.out.println(jtxfNumerador1.getText());
-            System.out.println(jtxfNumerador2.getText());
-            System.out.println(jtxfDenominador1.getText().isEmpty());
-            System.out.println(jtxfDenominador2.getText());
+
             
             int numerador1 = Integer.parseInt(jtxfNumerador1.getText());
             int denominador1 = 1;
             int numerador2 = Integer.parseInt(jtxfNumerador2.getText());
             int denominador2 = 1;
             
+            //Si el denominador está vació, se reemplaza por un 1
             if (jtxfDenominador1.getText().isEmpty()){ denominador1 = 1;  } else { denominador1 = Integer.parseInt(jtxfDenominador1.getText());}
             
             if (jtxfDenominador2.getText().isEmpty()){ denominador2 =  1;  } else { denominador2 = Integer.parseInt(jtxfDenominador2.getText());}
                         
-            //Crea el file admin solo si existe una operacion valida
+            //Crea el file admin solo si existe una operación válida
             try {
                 File file = new File(archivoDiario);
                 if (file.exists() && file.isFile() && file.canRead()) {
@@ -411,6 +408,7 @@ public class jfrmGUI extends javax.swing.JFrame {
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err.getMessage(), "Error al instanciar el Administrador de Archivos", JOptionPane.ERROR_MESSAGE);
             }
+            
             
             for (;;){
 
@@ -440,6 +438,8 @@ public class jfrmGUI extends javax.swing.JFrame {
                 }
                 //Se limpia el operando seleccionado esperando una siguiente operación
                 jbtgOperaciones.clearSelection();
+                jtxfDenominador1.repaint();
+                jtxfDenominador2.repaint());
                 
                 //Crea una ventana nueva donde muestra el resultado
                 jfrmResultado _jfrmResultado = new jfrmResultado();
