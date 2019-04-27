@@ -410,7 +410,7 @@ public class jfrmGUI extends javax.swing.JFrame {
             }
             
             
-            for (;;){
+            //for (;;){
 
                 //Sumar
                 if (jtbtSuma.isSelected()) {
@@ -438,8 +438,6 @@ public class jfrmGUI extends javax.swing.JFrame {
                 }
                 //Se limpia el operando seleccionado esperando una siguiente operación
                 jbtgOperaciones.clearSelection();
-                jtxfDenominador1.repaint();
-                jtxfDenominador2.repaint());
                 
                 //Crea una ventana nueva donde muestra el resultado
                 jfrmResultado _jfrmResultado = new jfrmResultado();
@@ -447,9 +445,9 @@ public class jfrmGUI extends javax.swing.JFrame {
                 _jfrmResultado.setSize(450, 370);
                 _jfrmResultado.show();
                 
-                break;
+                //break;
                 
-            }
+            //}
         } catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
             JOptionPane.showMessageDialog(null, "La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.","Error al crear operaci\u00f3n", JOptionPane.ERROR_MESSAGE); 
         } 
