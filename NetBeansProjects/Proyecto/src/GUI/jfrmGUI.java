@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class jfrmGUI extends javax.swing.JFrame {
     
     protected static String resultado = "/";
+    //protected Operacion operacionAInsertar;
     Date currentDate = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     protected String archivoDiario = "bitacora/" + dateFormat.format(currentDate) + ".csv";
@@ -419,7 +420,7 @@ public class jfrmGUI extends javax.swing.JFrame {
                 //Restar
                 else if(jtbtResta.isSelected()) {
                     Operacion operacion = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.RESTA);
-                    resultado = operacion.restar();    
+                    resultado = operacion.restar(); 
                     operacion.insertar(fileAdmin);
                 }
                 //Multiplicar

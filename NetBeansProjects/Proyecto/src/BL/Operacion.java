@@ -47,31 +47,55 @@ public class Operacion extends Fraccion {
     
     
     public String sumar () throws Exception{
+        
+        int numerador;
+        int denominador;
+        
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
-            resultado.setNumerador(super.getNumerador() + fraccion2.getNumerador());
-            resultado.setDenominador(super.getDenominador());
+            numerador = super.getNumerador() + fraccion2.getNumerador();
+            denominador = super.getDenominador();
         } else {
-            resultado.setNumerador((super.getNumerador()*fraccion2.getDenominador())+(super.getDenominador()*fraccion2.getNumerador()));
-            resultado.setDenominador(super.getDenominador()*fraccion2.getDenominador());
+            numerador = super.getNumerador()*fraccion2.getDenominador()+(super.getDenominador()*fraccion2.getNumerador());
+            denominador = super.getDenominador()*fraccion2.getDenominador();
         }
+            
+        if ( numerador == 0 || denominador == 0) {  return this.resultado = "0";  }
         
-        return simplificar(resultado.getNumerador(),resultado.getDenominador());
+        else {
+        
+            resultado.setNumerador(numerador);
+            resultado.setDenominador(denominador);
+
+            return simplificar(resultado.getNumerador(),resultado.getDenominador());
+        }
     } 
     
     public String restar () throws Exception {
+        
+        int numerador;
+        int denominador;
+        
         Fraccion resultado = new Fraccion();
         
         if (super.getDenominador() == fraccion2.getDenominador()) {
-            resultado.setNumerador(super.getNumerador() - fraccion2.getNumerador());
-            resultado.setDenominador(super.getDenominador());
+            numerador = super.getNumerador() - fraccion2.getNumerador();
+            denominador = super.getDenominador();
         } else {
-            resultado.setNumerador((super.getNumerador()*fraccion2.getDenominador())-(super.getDenominador()*fraccion2.getNumerador()));
-            resultado.setDenominador(super.getDenominador()*fraccion2.getDenominador());
+            numerador = super.getNumerador()*fraccion2.getDenominador() - (super.getDenominador()*fraccion2.getNumerador());
+            denominador = super.getDenominador()*fraccion2.getDenominador();
         }
+            
+        if (numerador == 0 || denominador == 0) {  return this.resultado = "0";  }
         
-        return simplificar(resultado.getNumerador(),resultado.getDenominador());    
+        else {
+        
+            resultado.setNumerador(numerador);
+            resultado.setDenominador(denominador);
+
+            return simplificar(resultado.getNumerador(),resultado.getDenominador());
+        }
     }
     
     public String multiplicar () throws Exception {
@@ -141,7 +165,6 @@ public class Operacion extends Fraccion {
         
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            System.out.println(sdf.format(date));
             String registro = toString() + "," + sdf.format(date);
             fa.insertarRegistro(registro);
         } catch(Exception err) {

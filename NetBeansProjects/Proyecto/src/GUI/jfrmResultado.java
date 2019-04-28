@@ -20,11 +20,18 @@ public class jfrmResultado extends javax.swing.JFrame {
      */
     public jfrmResultado() {
 
-        numerador = resultado.split("/")[0];
-        initComponents(); 
-        if(resultado.split("/")[1].equalsIgnoreCase("1")){denominador = ""; jSeparator1.hide();}
-        else {denominador = resultado.split("/")[1]; jlblDenominador.setText(denominador);}
-          
+        if (resultado.equals("0")) {
+            numerador = "0";
+            denominador = ""; 
+            initComponents(); 
+            jSeparator1.hide();
+        } 
+        else {
+            numerador = resultado.split("/")[0];
+            initComponents(); 
+            if(resultado.split("/")[1].equalsIgnoreCase("1")){denominador = ""; jSeparator1.hide();}
+            else {denominador = resultado.split("/")[1]; jlblDenominador.setText(denominador);}
+        }  
         
     }
 
