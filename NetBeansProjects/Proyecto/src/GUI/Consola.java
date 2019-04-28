@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -28,6 +29,11 @@ public class Consola {
     private static InputStreamReader isr = new InputStreamReader(System.in);
     private static BufferedReader teclado = new BufferedReader(isr);
     private static String[] operacion = new String[3];
+    private static int numerador1;
+    private static int numerador2;
+    private static int denominador1;
+    private static int denominador2;
+    
       
     /**
      * Método principal de la clase Consola
@@ -56,12 +62,24 @@ public class Consola {
         try {
 
             String operacionDeUsuario = teclado.readLine();
+            
             //Separa el input del usuario en el formato dado
-            operacion[0] = operacionDeUsuario.split(" ")[0].trim();
-            operacion[1] = operacionDeUsuario.split(" ")[1].trim();
-            operacion[2] = operacionDeUsuario.split(" ")[2].trim();
+            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+            
+            numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+            denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+            numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+            denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+            
+            
             crearOperacion();
 
+        }
+        
+        catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+            System.out.println("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
         } 
 
         catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
@@ -81,28 +99,28 @@ public class Consola {
     private static void crearOperacion() throws Exception {
         //Sumar
         if (operacion[1].equals("+") || operacion[1].equalsIgnoreCase("sumar") ) {
-            Operacion operacionARealizar = new Operacion(operacion[0], operacion[2],Operacion.OPERANDO.SUMA);
+            Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.SUMA);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.sumar());
             operacionARealizar.insertar(fileAdmin);
             System.out.println(operacionARealizar.toString());
         }
         //Restar
         else if (operacion[1].equals("-") || operacion[1].equalsIgnoreCase("restar") ) {
-            Operacion operacionARealizar = new Operacion(operacion[0], operacion[2],Operacion.OPERANDO.RESTA);
+            Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.RESTA);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.restar());
             operacionARealizar.insertar(fileAdmin);
             System.out.println(operacionARealizar.toString());
         }
         //Multiplicar
         else if (operacion[1].equals("*") || operacion[1].equals("x") || operacion[1].equalsIgnoreCase("multiplicar") ) {
-            Operacion operacionARealizar = new Operacion(operacion[0], operacion[2],Operacion.OPERANDO.MULTIPLICACION);
+            Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.MULTIPLICACION);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.multiplicar());
             operacionARealizar.insertar(fileAdmin);
             System.out.println(operacionARealizar.toString());
         }
         //Dividir
         else if (operacion[1].equals("/") || operacion[1].equalsIgnoreCase("dividir") ) {
-            Operacion operacionARealizar = new Operacion(operacion[0], operacion[2],Operacion.OPERANDO.DIVISION);
+            Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.DIVISION);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.dividir());
             operacionARealizar.insertar(fileAdmin);
             System.out.println(operacionARealizar.toString());
