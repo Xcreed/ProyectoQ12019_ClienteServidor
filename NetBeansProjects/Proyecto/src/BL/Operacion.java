@@ -2,6 +2,8 @@ package BL;
 
 import DA.FileAdmin;
 import GUI.jfrmGUI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +23,7 @@ public class Operacion extends Fraccion {
     }
     private OPERANDO operando;
     private String resultado;
-    
+    private Date date = new Date();
     /**
      * Constructor con valores por omisión
      * @throws Exception 
@@ -138,7 +140,9 @@ public class Operacion extends Fraccion {
         }
         
         try {
-            String registro = toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            System.out.println(sdf.format(date));
+            String registro = toString() + "," + sdf.format(date);
             fa.insertarRegistro(registro);
         } catch(Exception err) {
             throw new Exception("Error en el metodo insertar(FileAdmin, Operacion).\n- " + err.getMessage());
