@@ -42,7 +42,7 @@ public class Consola {
      * Método principal de la clase Consola
      * @param args 
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         
         System.out.println("Bienvenido!");
         
@@ -58,20 +58,57 @@ public class Consola {
                     System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
                     //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
 
+                    
+                    
                     try {
 
                         String operacionDeUsuario = teclado.readLine();
+                        
+                        if (operacionDeUsuario.contains("/")) {
+                            //Separa el input del usuario en el formato dado
+                            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+                            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+                            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
 
-                        //Separa el input del usuario en el formato dado
-                        operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
-                        operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
-                        operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+                            
+                            if (!operacion[0].contains("/")) {
+                                numerador1 = numerador1 = Integer.parseInt(operacion[0]);
+                                denominador1 = 1;
+                                numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+                                denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+                            } 
+                            
+                            else if(!operacion[2].contains("/")) {
+                                numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+                                denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+                                numerador2 = Integer.parseInt(operacion[2]);
+                                denominador2 = 1;
+                            } 
+                            
+                            else {
+                                numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+                                denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+                                numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+                                denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+                            }
+                            
+                            crearOperacion();
+                            
+                        } 
+                        
+                        else {
+                            
+                            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+                            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+                            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
 
-                        numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
-                        denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
-                        numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
-                        denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
-                        crearOperacion();
+                            numerador1 = Integer.parseInt(operacion[0]);
+                            denominador1 = 1;
+                            numerador2 = Integer.parseInt(operacion[2]);
+                            denominador2 = 1;
+                            crearOperacion();
+                            
+                        }
 
                     }
 
@@ -86,6 +123,8 @@ public class Consola {
                         System.out.println(ex.getMessage());
                     }
                     break;
+                    
+                    
                 case 2: 
                     File folder = new File("bitacora/");
                     File[] listOfFiles = folder.listFiles();
