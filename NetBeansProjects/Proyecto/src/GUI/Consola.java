@@ -139,7 +139,7 @@ public class Consola {
                     int idArchivo = Integer.parseInt(seleccionArchivo);
                     
                     try {
-                        fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1]); //Se define el file admin con el archivo que existe
+                        fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1].getName()); //Se define el file admin con el archivo que existe
                         cargarDatos();
                     } catch (Exception err) {
                         JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);         
@@ -153,9 +153,7 @@ public class Consola {
                     System.out.println("Por favor seleccione una opción válida.");
             }
 
-            //break;
         }
-
         
     }    
     
@@ -182,28 +180,24 @@ public class Consola {
             Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.SUMA);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.sumar());
             operacionARealizar.insertar(fileAdmin);
-            System.out.println(operacionARealizar.toString());
         }
         //Restar
         else if (operacion[1].equals("-") || operacion[1].equalsIgnoreCase("restar") ) {
             Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.RESTA);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.restar());
             operacionARealizar.insertar(fileAdmin);
-            System.out.println(operacionARealizar.toString());
         }
         //Multiplicar
         else if (operacion[1].equals("*") || operacion[1].equals("x") || operacion[1].equalsIgnoreCase("multiplicar") ) {
             Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.MULTIPLICACION);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.multiplicar());
             operacionARealizar.insertar(fileAdmin);
-            System.out.println(operacionARealizar.toString());
         }
         //Dividir
         else if (operacion[1].equals("/") || operacion[1].equalsIgnoreCase("dividir") ) {
             Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.DIVISION);
             System.out.println("El resultado de la operaci\u00f3n es: "+operacionARealizar.dividir());
             operacionARealizar.insertar(fileAdmin);
-            System.out.println(operacionARealizar.toString());
         } 
         //No se usó el operando o formato correcto
         else {
@@ -219,7 +213,7 @@ public class Consola {
             
             else{
                 registros = new String[lasOperaciones.length][5];
-                System.out.println(Arrays.toString(registros[1]));
+                System.out.println("\nHistorial de operaciones:");
 
                 for(int i = 0; i < lasOperaciones.length; i++){
                     registros[i][0] = lasOperaciones[i].split(",")[0]; //Asignacion de fracción 1
@@ -227,8 +221,10 @@ public class Consola {
                     registros[i][2] = lasOperaciones[i].split(",")[2]; //Asignacion de operando
                     registros[i][3] = lasOperaciones[i].split(",")[3]; //Asignacion de resultado
                     registros[i][4] = lasOperaciones[i].split(",")[4]; //Asignacion de Hora
-                    
-                    System.out.println("");
+                  
+                    System.out.println("Fracción 1: " + registros[i][0] + ", fracción 2: " + registros[i][1] +
+                            ", operación: " + registros[i][2] + ", resultado: " + registros[i][3] +
+                            ", hora: " + registros[i][4] + ".");
                     
                 }
             }
