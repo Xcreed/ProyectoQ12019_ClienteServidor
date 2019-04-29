@@ -52,111 +52,118 @@ public class Consola {
             System.out.println("\nIngrese el número correspondiente a la opci\u00f3n que desea realizar.");
             System.out.println("1. Realizar operación entre fracciones.\n2. Visualizar la bitácora.\n3. Salir.");
             
-            String seleccionDeUsuario = teclado.readLine();
-            int accionARealizar = Integer.parseInt(seleccionDeUsuario);
-            
-            switch(accionARealizar) {
-                case 1:
-                    System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
-                    //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
+            try { 
+                String seleccionDeUsuario = teclado.readLine();
+                int accionARealizar = Integer.parseInt(seleccionDeUsuario);
 
-                    
-                    
-                    try {
+                switch(accionARealizar) {
+                    case 1:
+                        System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
+                        //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
 
-                        String operacionDeUsuario = teclado.readLine();
-                        
-                        if (operacionDeUsuario.contains("/")) {
-                            //Separa el input del usuario en el formato dado
-                            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
-                            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
-                            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
 
-                            
-                            if (!operacion[0].contains("/")) {
-                                numerador1 = numerador1 = Integer.parseInt(operacion[0]);
-                                denominador1 = 1;
-                                numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
-                                denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+
+                        try {
+
+                            String operacionDeUsuario = teclado.readLine();
+
+                            if (operacionDeUsuario.contains("/")) {
+                                //Separa el input del usuario en el formato dado
+                                operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+                                operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+                                operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+
+
+                                if (!operacion[0].contains("/")) {
+                                    numerador1 = numerador1 = Integer.parseInt(operacion[0]);
+                                    denominador1 = 1;
+                                    numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+                                    denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+                                } 
+
+                                else if(!operacion[2].contains("/")) {
+                                    numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+                                    denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+                                    numerador2 = Integer.parseInt(operacion[2]);
+                                    denominador2 = 1;
+                                } 
+
+                                else {
+                                    numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+                                    denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+                                    numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+                                    denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+                                }
+
+                                crearOperacion();
+    //                            
                             } 
-                            
-                            else if(!operacion[2].contains("/")) {
-                                numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
-                                denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+
+                            else {
+
+                                operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+                                operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+                                operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+
+                                numerador1 = Integer.parseInt(operacion[0]);
+                                denominador1 = 1;
                                 numerador2 = Integer.parseInt(operacion[2]);
                                 denominador2 = 1;
-                            } 
-                            
-                            else {
-                                numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
-                                denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
-                                numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
-                                denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
-                            }
-                            
-                            crearOperacion();
-                            
-                        } 
-                        
-                        else {
-                            
-                            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
-                            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
-                            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+                                crearOperacion();
 
-                            numerador1 = Integer.parseInt(operacion[0]);
-                            denominador1 = 1;
-                            numerador2 = Integer.parseInt(operacion[2]);
-                            denominador2 = 1;
-                            crearOperacion();
-                            
+                            }
+
                         }
 
-                    }
+                        catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+                            System.out.println("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
+                        } 
 
-                    catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
-                        System.out.println("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
-                    } 
+                        catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
+                            System.out.println("Verifique el formato de la operaci\u00f3n.");
+                        }
+                        catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
 
-                    catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
-                        System.out.println("Verifique el formato de la operaci\u00f3n.");
-                    }
-                    catch (Exception ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                    break;
-                    
-                    
-                case 2: 
-                    File folder = new File("bitacora/");
-                    File[] listOfFiles = folder.listFiles();
-                    
-                    System.out.println("\nArchivos disponibles:");
-                    
-                    //Se obtiene la lista de archivos disponibles
-                    for(int i = 0; i < listOfFiles.length; i++) {
-                        System.out.println(Integer.toString(i+1) + ". " + listOfFiles[i].getName());
-                    }
-                    
-                    //Se obtiene el input del usuario para el archivo seleccionado
-                    String seleccionArchivo = teclado.readLine();
-                    int idArchivo = Integer.parseInt(seleccionArchivo);
-                    
-                    try {
-                        fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1].getName()); //Se define el file admin con el archivo que existe
-                        cargarDatos();
-                    } catch (Exception err) {
-                        System.out.println("Error al abrir el archivo" + err.getMessage());         
-                    }
-                    
-                    break;
-                case 3:
-                    System.out.println("\nGracias por utilizar nuestra aplicación. Hasta la próxima!");
-                    System.exit(0);
-                default:
-                    System.out.println("Por favor seleccione una opción válida.");
+
+                    case 2: 
+                        File folder = new File("bitacora/");
+                        File[] listOfFiles = folder.listFiles();
+
+                        System.out.println("\nArchivos disponibles:");
+
+                        //Se obtiene la lista de archivos disponibles
+                        for(int i = 0; i < listOfFiles.length; i++) {
+                            System.out.println(Integer.toString(i+1) + ". " + listOfFiles[i].getName());
+                        }
+
+                        //Se obtiene el input del usuario para el archivo seleccionado
+                        String seleccionArchivo = teclado.readLine();
+                        int idArchivo = Integer.parseInt(seleccionArchivo);
+
+                        try {
+                            fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1].getName()); //Se define el file admin con el archivo que existe
+                            cargarDatos();
+                        } catch (Exception err) {
+                            System.out.println("Error al abrir el archivo" + err.getMessage());         
+                        }
+
+                        break;
+                    case 3:
+                        System.out.println("\nGracias por utilizar nuestra aplicaci\u00f3n. Hasta la pr\u00f3xima!");
+                        System.exit(0);
+                    default:
+                        System.out.println("Por favor seleccione una opci\u00f3n v\u00e1lida.");
+                }
+            } catch (Exception ex) {
+                
+                System.out.println("Por favor escoja una opci\u00f3n v\u00e1lida.");
+            
             }
 
+            
         }
         
     }    
