@@ -9,8 +9,10 @@ import BL.Operacion;
 import DA.FileAdmin;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -33,15 +35,96 @@ public class Consola {
     private static int numerador2;
     private static int denominador1;
     private static int denominador2;
+    private static String[][] registros;
     
       
     /**
      * Método principal de la clase Consola
      * @param args 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
+        System.out.println("Bienvenido!");
+        
+        for(;;) {
+            System.out.println("\nIngrese el número correspondiente a la opci\u00f3n que desea realizar.");
+            System.out.println("1. Realizar operación entre fracciones.\n2. Visualizar la bitácora.\n3. Salir.");
+            
+            String seleccionDeUsuario = teclado.readLine();
+            int accionARealizar = Integer.parseInt(seleccionDeUsuario);
+            
+            switch(accionARealizar) {
+                case 1:
+                    System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
+                    //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
+
+                    try {
+
+                        String operacionDeUsuario = teclado.readLine();
+
+                        //Separa el input del usuario en el formato dado
+                        operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
+                        operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
+                        operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
+
+                        numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
+                        denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
+                        numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
+                        denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
+                        crearOperacion();
+
+                    }
+
+                    catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
+                        System.out.println("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
+                    } 
+
+                    catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
+                        System.out.println("Verifique el formato de la operaci\u00f3n.");
+                    }
+                    catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    break;
+                case 2: 
+                    File folder = new File("bitacora/");
+                    File[] listOfFiles = folder.listFiles();
+                    
+                    System.out.println("\nArchivos disponibles:");
+
+                    for(int i = 0; i < listOfFiles.length; i++) {
+                        System.out.println(Integer.toString(i+1) + ". " + listOfFiles[i].getName());
+                    }
+                    
+                    String seleccionArchivo = teclado.readLine();
+                    int idArchivo = Integer.parseInt(seleccionArchivo);
+                    
+                    try {
+                        fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1]); //Se define el file admin con el archivo que existe
+                        cargarDatos();
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);         
+                    }
+                    
+                    break;
+                case 3:
+                    System.out.println("\nGracias por utilizar nuestra aplicación. Hasta la próxima!");
+                    System.exit(0);
+                default:
+                    System.out.println("Por favor seleccione una opción válida.");
+            }
+
+            //break;
+        }
+
+        
+    }    
     
+    /**
+    * Realiza la operación que se indicó al momento de recibir el input del usuario
+    * @throws Exception cuando las fracciones no están en el formato correcto o el operando no es el correcto
+    */
+    private static void crearOperacion() throws Exception {
         
         try {
             File file = new File(archivoDiario);
@@ -54,49 +137,7 @@ public class Consola {
         } catch (Exception err) {
             System.out.println(err.getMessage());
         }
-
-
-        System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
-            //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
-
-        try {
-
-            String operacionDeUsuario = teclado.readLine();
-            
-            //Separa el input del usuario en el formato dado
-            operacion[0] = operacionDeUsuario.split(" ")[0].trim(); // fracción 1
-            operacion[1] = operacionDeUsuario.split(" ")[1].trim(); // operando
-            operacion[2] = operacionDeUsuario.split(" ")[2].trim(); // fracción 2
-            
-            numerador1 = Integer.parseInt(operacion[0].split("/")[0]);
-            denominador1 = Integer.parseInt(operacion[0].split("/")[1]);
-            numerador2 = Integer.parseInt(operacion[2].split("/")[0]);
-            denominador2 = Integer.parseInt(operacion[2].split("/")[1]);
-            
-            
-            crearOperacion();
-
-        }
         
-        catch (NumberFormatException nfe) { //Fraccion no tiene numerador o tiene letras
-            System.out.println("La fracci\u00f3n no posee el formato correcto. Verifique y vuelva a intentar.");
-        } 
-
-        catch(ArrayIndexOutOfBoundsException aiobe) { //La operación no contiene el formato correcto porque no tiene espacios
-            System.out.println("Verifique el formato de la operaci\u00f3n.");
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-    }
-
-    
-    /**
-     * Realiza la operación que se indicó al momento de recibir el input del usuario
-     * @throws Exception cuando las fracciones no están en el formato correcto o el operando no es el correcto
-     */
-    private static void crearOperacion() throws Exception {
         //Sumar
         if (operacion[1].equals("+") || operacion[1].equalsIgnoreCase("sumar") ) {
             Operacion operacionARealizar = new Operacion(numerador1, denominador1, numerador2, denominador2, Operacion.OPERANDO.SUMA);
@@ -129,9 +170,33 @@ public class Consola {
         else {
             throw new Exception ("Por favor verifique el formato u operando utilizado");
         }
-                
-                
-    
     }
-   
+    
+    private static void cargarDatos () {
+        try {
+            
+            String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
+            if (lasOperaciones.length == 0) { throw new Exception ("El archivo no contiene registros."); }
+            
+            else{
+                registros = new String[lasOperaciones.length][5];
+                System.out.println(Arrays.toString(registros[1]));
+
+                for(int i = 0; i < lasOperaciones.length; i++){
+                    registros[i][0] = lasOperaciones[i].split(",")[0]; //Asignacion de fracción 1
+                    registros[i][1] = lasOperaciones[i].split(",")[1]; //Asignacion de fracción 2
+                    registros[i][2] = lasOperaciones[i].split(",")[2]; //Asignacion de operando
+                    registros[i][3] = lasOperaciones[i].split(",")[3]; //Asignacion de resultado
+                    registros[i][4] = lasOperaciones[i].split(",")[4]; //Asignacion de Hora
+                    
+                    System.out.println("");
+                    
+                }
+            }
+            
+        } catch (Exception err) {
+            System.out.println("Error al cargar los datos del archivo." + err.getMessage());
+        }
+    }
+
 }
