@@ -7,13 +7,13 @@ import java.util.Date;
 
 /**
  *
- * @author damar
- * @version 1.0
- * @since 2019-04-12 11:00 pm MDT
+ * @author Marcela Ortega, Juan Pablo Mayorga
+ * @version 20190412
  */
 
 public class Operacion extends Fraccion {
     
+    //Atributos de la clase
     private Fraccion fraccion2;
     public enum OPERANDO{
         SUMA,
@@ -24,9 +24,10 @@ public class Operacion extends Fraccion {
     private OPERANDO operando;
     private String resultado;
     private Date date = new Date();
+    
     /**
      * Constructor con valores por omisión
-     * @throws Exception 
+     * @throws Exception en caso de error
      */
     public Operacion() throws Exception{
         this(1,1,1,1,null);
@@ -45,7 +46,11 @@ public class Operacion extends Fraccion {
         this.operando = operando;
     }
     
-    
+    /**
+     * M&eacute;todo que se encarga de sumar dos fracciones
+     * @return String con el resultado simplificado
+     * @throws Exception seg&uacute;n errores en fraccion
+     */
     public String sumar () throws Exception{
         
         int numerador;
@@ -61,7 +66,7 @@ public class Operacion extends Fraccion {
             denominador = super.getDenominador()*fraccion2.getDenominador();
         }
             
-        if ( numerador == 0 || denominador == 0) {  return this.resultado = "0";  }
+        if (numerador == 0 || denominador == 0) {  return this.resultado = "0";  }
         
         else {
         
@@ -72,6 +77,11 @@ public class Operacion extends Fraccion {
         }
     } 
     
+    /**
+     * M&eacute;todo que resta dos fracciones
+     * @return String con el resultado simplificado
+     * @throws Exception seg&uacute;n errores en fraccion
+     */
     public String restar () throws Exception {
         
         int numerador;
@@ -98,6 +108,11 @@ public class Operacion extends Fraccion {
         }
     }
     
+    /**
+     * M&eacute;todo que multiplica dos fracciones
+     * @return String con el resultado simplificado
+     * @throws Exception seg&uacute;n errores en fraccion
+     */
     public String multiplicar () throws Exception {
         Fraccion resultado = new Fraccion();
         
@@ -107,6 +122,11 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());    
     }
     
+    /**
+     * M&eacute;todo que divide dos fracciones
+     * @return String con el resultado simplificado
+     * @throws Exception seg&uacute;n errores en fraccion
+     */
     public String dividir () throws Exception {
         Fraccion resultado = new Fraccion();
         
@@ -116,6 +136,12 @@ public class Operacion extends Fraccion {
         return simplificar(resultado.getNumerador(),resultado.getDenominador());  
     }
     
+    /**
+     * M&eacute;todo que calcula el maximo comun divisor para simplificar una fraccion
+     * @param numerador de la fraccion resultado
+     * @param denominador de la fraccion resultado
+     * @return entero con el numero maximo comun divisor
+     */
     private int mcd (int numerador, int denominador) {
         if (numerador % denominador == 0) {
             return denominador;
@@ -124,6 +150,13 @@ public class Operacion extends Fraccion {
         }
     }
     
+    /**
+     * M&eacute;todo que simplifica una fraccion
+     * @param numerador de la fraccion resultado
+     * @param denominador de la fraccion resultado
+     * @return String del resultado
+     * @throws Exception segun la clase fraccion
+     */
     private String simplificar (int numerador, int denominador) throws Exception {
         int divisor = mcd(numerador,denominador);
         Fraccion resultado = new Fraccion();
@@ -136,6 +169,12 @@ public class Operacion extends Fraccion {
         return resultado.toString();
     }
     
+    /**
+     * M&eacute;todo que obtiene los datos de un archivo
+     * @param fa fileadmin generado
+     * @return String[] con los datos en el archivo
+     * @throws Exception si el fileadmin es nulo o al intentar extraer los registros
+     */
     public static String[] getOperaciones(FileAdmin fa) throws Exception{
         if (fa==null) { 
             throw new Exception("El administrador de archivos no debe ser nulo al obtener la operacion."); 
@@ -146,11 +185,6 @@ public class Operacion extends Fraccion {
         try {
             // Se extraen todos los registros del archivo.
             registros = fa.extraerRegistros();
-            // Se recorren uno a uno para instanciarlos y agregarlos al vector.
-            for (String r : registros) {
-                // Se separan los datos del registro separados por ",".
-                String[] datos = r.split(",");
-            }
         }catch(Exception err) {
             throw new Exception("Error en el metodo getOperaciones(FileAdmin).\n- " + err.getMessage());
         }
@@ -158,6 +192,11 @@ public class Operacion extends Fraccion {
         return registros;
     }
     
+    /**
+     * M&eacute;todo que inserta el registro de la operacion con su hora correspondiente
+     * @param fa fileadmin generado
+     * @throws Exception al intentar insertar
+     */
     public void insertar(FileAdmin fa) throws Exception {
         if (fa == null) {
             throw new Exception("El administrador de archivos no debe ser nulo al insertar."); 

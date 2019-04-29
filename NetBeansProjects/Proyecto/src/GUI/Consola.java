@@ -18,11 +18,12 @@ import javax.swing.JOptionPane;
 
 
 /**
- *
- * @author Juan Pablo Mayorga
+ * 
+ * @author Juan Pablo Mayorga, Marcela Ortega
+ * @version 20190429
  */
 public class Consola {
-    
+    //Atributos de la clase
     private static Date currentDate = new Date();
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     protected static String archivoDiario = "bitacora/" + dateFormat.format(currentDate) + ".csv";
@@ -39,8 +40,9 @@ public class Consola {
     
       
     /**
-     * Método principal de la clase Consola
-     * @param args 
+     * M&eacute;todo principal de la clase Consola
+     * @param args
+     * @throws Exception en caso de errores
      */
     public static void main(String[] args) throws Exception {
         
@@ -130,11 +132,13 @@ public class Consola {
                     File[] listOfFiles = folder.listFiles();
                     
                     System.out.println("\nArchivos disponibles:");
-
+                    
+                    //Se obtiene la lista de archivos disponibles
                     for(int i = 0; i < listOfFiles.length; i++) {
                         System.out.println(Integer.toString(i+1) + ". " + listOfFiles[i].getName());
                     }
                     
+                    //Se obtiene el input del usuario para el archivo seleccionado
                     String seleccionArchivo = teclado.readLine();
                     int idArchivo = Integer.parseInt(seleccionArchivo);
                     
@@ -142,7 +146,7 @@ public class Consola {
                         fileAdmin = new FileAdmin("bitacora/" + listOfFiles[idArchivo-1].getName()); //Se define el file admin con el archivo que existe
                         cargarDatos();
                     } catch (Exception err) {
-                        JOptionPane.showMessageDialog(null, err.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);         
+                        System.out.println("Error al abrir el archivo" + err.getMessage());         
                     }
                     
                     break;
@@ -207,14 +211,16 @@ public class Consola {
     
     private static void cargarDatos () {
         try {
-            
+            //Se obtienen los registros del archivo
             String[] lasOperaciones = Operacion.getOperaciones(fileAdmin);
             if (lasOperaciones.length == 0) { throw new Exception ("El archivo no contiene registros."); }
             
             else{
+                //Se inicializa la variable de registros para guardar cada linea de historial
                 registros = new String[lasOperaciones.length][5];
                 System.out.println("\nHistorial de operaciones:");
 
+                //Se asignan los valores por columna y se imprimen en consola
                 for(int i = 0; i < lasOperaciones.length; i++){
                     registros[i][0] = lasOperaciones[i].split(",")[0]; //Asignacion de fracción 1
                     registros[i][1] = lasOperaciones[i].split(",")[1]; //Asignacion de fracción 2
