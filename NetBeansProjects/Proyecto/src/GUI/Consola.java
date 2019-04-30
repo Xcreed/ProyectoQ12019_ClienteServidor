@@ -58,7 +58,7 @@ public class Consola {
 
                 switch(accionARealizar) {
                     case 1:
-                        System.out.println("Por favor, ingrese la operaci\u00f3n con el siguiente formato:\nFracci\u00f3n Operando Fracci\u00f3n");
+                        System.out.println("Por favor, ingrese la operaci\u00f3n usando el formato del ejemplo (dejando espacios entre las fracciones y el operando)\n 1/2 + 1/2");
                         //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
 
 
