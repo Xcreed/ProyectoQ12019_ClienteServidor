@@ -9,12 +9,9 @@ import BL.Operacion;
 import DA.FileAdmin;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -58,7 +55,7 @@ public class Consola {
 
                 switch(accionARealizar) {
                     case 1:
-                        System.out.println("Por favor, ingrese la operaci\u00f3n usando el formato del ejemplo (dejando espacios entre las fracciones y el operando)\n 1/2 + 1/2");
+                        System.out.println("Por favor, ingrese la operaci\u00f3n usando el formato del ejemplo *importante el uso de espacios* \n 1/2 + 1/2");
                         //Necesita un switch case para que el usuario escoja si quiere ver la bitacora o realizar un calculo
 
 
